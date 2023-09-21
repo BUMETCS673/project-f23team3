@@ -9,3 +9,17 @@ programming languages and skills:
 - C++
 - Python
 - SQL
+
+
+<h2>Xiankun Niu</h2>
+
+Hello! My name is Xiankun Niu,and I am from China. I graduated from Tongji University in Shanghai with a bachelor's degree in software engineering, and then I worked in ByteDance company for almost 3 years.
+
+programming languages and skills:
+- R
+- C
+- Java
+- Python
+- Javascript
+
+- MySQL, Vue, Django 
