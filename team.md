@@ -34,3 +34,15 @@ programming languages and skills:
 - MySQL
 - Java
 - C
+
+
+<h2>Siyuan Xue</h2>
+
+Hello, My name is Siyuan Xue, I'm from China and I graduated from University of Minnesota, Twin ctites, with CS major. I usually use Python. Good at machine learning algorithms.
+
+programming languages and skills:
+- Python
+- MySQL
+- Java
+- C++
+- R
