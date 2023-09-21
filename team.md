@@ -23,3 +23,14 @@ programming languages and skills:
 - Javascript
 
 - MySQL, Vue, Django 
+
+
+<h2>Jialin Li</h2>
+
+Hello My name is Jialin Li, and I came from China. I graduated from Henan Normal University in Henan with a bachelor's degree in Computer Science. I usually use Python.
+
+programming languages and skills:
+- Python
+- MySQL
+- Java
+- C
