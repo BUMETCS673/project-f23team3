@@ -55,3 +55,11 @@ programming languages and skills:
 - Python
 - MySQL
 - R
+
+<h2>Siyuan Xue</h2>
+
+Hello, My name is Chandrasiri, I'm from Sri Lanka and I graduated from University of Colombo, with SE major. I usually use C#, .NET Core, EF Core.
+
+programming languages and skills:
+- C#
+- MSSQL
