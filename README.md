@@ -1,4 +1,20 @@
 # GroupProjectTemplate version0.1
+Mermbers:
+
+Team Leader Siyuan Xue
+
+Configuration Leader Tony Xiang
+
+Design and Implementation Leader Xiankun Niu
+
+Requirement Leader Zhuoru Song
+
+QA leader Jialin Li
+
+Security leader Chandrasiri
+
+# Abstract
+
 The proposed system is an “Online Restaurant Ordering System”  designed to facilitate the ordering process for both customers and the restaurant staff. It is developed using Python Flask. It involves the utilization of QR codes assigned to each table, enabling users to access the restaurant’s menu and place orders. The system is envisioned to optimize the ordering process, reducing wait times and human errors, while offering real-time updates to the kitchen staff. Here’s a breakdown of the system functionality:
 
 User Interaction Systems:
