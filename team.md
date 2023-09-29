@@ -56,7 +56,7 @@ programming languages and skills:
 - MySQL
 - R
 
-<h2>Chandrasiri</h2>
+## Chandrasiri
 
 Hello, My name is Chandrasiri, I'm from Sri Lanka and I graduated from University of Colombo, with SE major. I usually use C#, .NET Core, EF Core.
 
