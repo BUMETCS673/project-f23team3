@@ -4,5 +4,22 @@
 <title> Login </title>
 {% endblock %}
 {% block body %}
-<h1>This is the login page</h1>
+<div class="position-relative" style="margin-left: 45px;">
+    <h2>Login with Email</h2>
+    <form>
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-form-label">Email</label>
+            <div class="col-sm-3">
+                <input type="email" class="form-control" id="inputEmail3">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPassword3" class="col-form-label">Password</label>
+            <div class="col-sm-3">
+                <input type="password" class="form-control" id="inputPassword3">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
 {% endblock %}
