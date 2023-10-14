@@ -7,32 +7,30 @@
 {% block body %}
 <div class="position-relative" style="margin-left: 45px;">
     <h2>Register with Email</h2>
-      <form>
+      <form action="{{ url_for('register_api.sign_up_page') }}" method="post">
       <div class="row mb-3">
-        <label for="inputEmail3" class="col-form-label">Email</label>
+        <label for="inputEmail" class="col-form-label">Email</label>
         <div class="col-sm-3">
-          <input type="email" class="form-control" id="inputEmail3">
+          <input type="email" class="form-control" id="inputEmail" name="inputEmail">
         </div>
       </div>
       <div class="row mb-3">
-        <label for="inputPassword3" class="col-form-label">Password</label>
+        <label for="inputPassword" class="col-form-label">Password</label>
         <div class="col-sm-3">
-          <input type="password" class="form-control" id="inputPassword3">
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-sm-10">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck1">
-            <label class="form-check-label" for="gridCheck1">
-              Receive email on menu update
-            </label>
-          </div>
+          <input type="password" class="form-control" id="inputPassword" name="inputPassword">
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
 </div>
 
+<div class="position-relative" style="margin-left: 45px;">
+  {% if success %}
+        <p style="color: green;">Success, please verify your email address before login.</p>
+  {% endif %}
+  {% if error %}
+        <p style="color: red;">{{ error }}</p>
+  {% endif %}
+</div>
 
 {% endblock %}
