@@ -4,5 +4,32 @@
 <title> Shopping Cart </title>
 {% endblock %}
 {% block body %}
-<h1>This is the cart page</h1>
+<div class="content">
+    <h1 style="text-align: center">Cart</h1>
+    {% if tasks|length < 0 %}
+    <h4 style="text-align: center">Cart empty</h4>
+    {% else %}
+    <div class="table">
+      <div class="row">
+        <div class="col-sm-4">
+          <h3>Item</h3>
+        </div>
+        <div class="col-sm-4">
+          <h3>Amount</h3>
+        </div>
+        <div class="col-sm-4">
+          <h3>Action</h3>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="test item" id="test_item">
+            <input type="submit" value="test add item">
+            <input type="submit" value="Order">
+        </form>
+    </div>
+</div>
 {% endblock %}
