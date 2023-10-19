@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Data Insertion Form </title>
+{% endblock %}
+
+{% block body %}
+    <h1>Data Insertion Form</h1>
+    <form action="/insert_post" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="description">Description:</label>
+        <textarea name="description" required></textarea><br>
+
+        <label for="image">Image:</label>
+        <input type="file" name="image" accept="image/*"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

@@ -1,19 +1,24 @@
 from flask import Flask, render_template, request
-import flask_sqlalchemy as alchemy
+from flask_sqlalchemy import SQLAlchemy
+from Models import db
 from LoginPage import login_layout
 from RegiserPage import register_layout
-from MenuPage import menu_layout
+from FullMenu import full_menu
+from MainMenu import main_menu
 from CartPage import cart_layout
 from ConfirmPage import confirm_layout
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testDB.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///menu.db'
+db.init_app(app)
 app.register_blueprint(login_layout)
 app.register_blueprint(register_layout)
-app.register_blueprint(menu_layout)
+app.register_blueprint(full_menu)
 app.register_blueprint(cart_layout)
 app.register_blueprint(confirm_layout)
+app.register_blueprint(main_menu)
+
 
 @app.route('/')
 def index():
@@ -21,4 +26,6 @@ def index():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run()

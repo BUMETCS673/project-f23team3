@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Full Menu Insert Form </title>
+{% endblock %}
+
+{% block body %}
+    <h1>Full menu insert form</h1>
+    <form action="/fm_insert_post" method="POST" enctype="multipart/form-data">
+        <h2>Main Menu Data</h2>
+        <!-- Main menu dropdown list -->
+        <label for="main_menu_id">Select Main Menu:</label>
+        <select name="main_menu_id" required>
+            {% for main_menu in main_menus %}
+            <option value="{{ main_menu.id }}">{{ main_menu.name }}</option>
+            {% endfor %}
+        </select>
+
+        <h2>Full Menu Data</h2>
+        <label for="name">Full Menu Name:</label>
+        <input type="text" name="name" required><br>
+        <label for="description">Full Menu Description:</label>
+        <textarea name="description" required></textarea><br>
+        <label for="price">Full Menu Price:</label>
+        <input type="text" name="price" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

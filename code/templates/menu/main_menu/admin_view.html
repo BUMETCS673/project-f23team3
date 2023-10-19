@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>Main menu</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <!-- Add more headers for additional columns if needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in main_menu_items %}
+                <tr>
+                    <td>{{ e.id }}</td>
+                    <td>{{ e.name }}</td>
+                    <td>{{ e.description }}</td>
+                    <!-- Add more cells for additional columns if needed -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
