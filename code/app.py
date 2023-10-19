@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import flask_sqlalchemy as alchemy
 from LoginPage import login_layout
 from RegiserPage import register_layout
@@ -13,10 +13,10 @@ app.register_blueprint(register_layout)
 app.register_blueprint(menu_layout)
 app.register_blueprint(cart_layout)
 app.register_blueprint(confirm_layout)
-
+ 
 @app.route("/")
 def hello():
-    return "Home Page!"
+    return render_template("home.html")
 
 
 if __name__ == "__main__":
