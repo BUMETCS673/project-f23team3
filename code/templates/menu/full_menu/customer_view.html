@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Main Menu </title>
+{% endblock %}
+
+{% block body %}
+    <h1>Main Menu Items</h1>
+    <div class="menu-container">
+    {% if full_menu_items %}
+        {% for e in full_menu_items %}
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Menu Image">
+                <h3>{{ e.name }} | {{ e.price }}</h3>
+                <p>{{ e.description }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="menu-item">
+            <h2>"Hakuna Matata"</h2><h3> Our kitchen is ready for you soon!</h3>
+            <img src="{{ url_for('static', filename='images/menu/hm.png') }}" alt="Main Menu Image">
+        </div>
+    {% endif %}
+    </div>
+    <div><a href="{{ url_for('main_menu.customer_index') }}" class="back-button">Back to Main Menu</a></div>
+{% endblock %}

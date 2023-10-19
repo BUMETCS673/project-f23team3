@@ -10,8 +10,6 @@ def sign_up_page():
         # Handle form submission
         email = request.form.get("inputEmail")
         password = request.form.get("inputPassword")
-        print(email)
-        print(password)
         # Actual Registration are handled in local file firesecure.py
         try:
             firesecure.register_with_email(email, password)
