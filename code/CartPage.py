@@ -1,5 +1,5 @@
 from flask import Blueprint, Flask, render_template, request, jsonify
-from Models import db, Order
+from Models import db, Orders
 
 cart_layout = Blueprint('cart_layout', __name__)
 

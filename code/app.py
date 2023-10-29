@@ -10,7 +10,7 @@ from ConfirmPage import confirm_layout
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///menu.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
 db.init_app(app)
 app.register_blueprint(login_layout)
 app.register_blueprint(register_layout)
