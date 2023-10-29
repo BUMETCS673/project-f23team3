@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from app import db
+from Models import db
 
 confirm_layout = Blueprint('confirm_layout', __name__)
 
