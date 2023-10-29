@@ -4,7 +4,7 @@ import firesecure
 login_layout = Blueprint('login_api', __name__)
 
 
-@login_layout.route("/login")
+@login_layout.route("/login", methods=["GET", "POST"])
 def login_page():
     if request.method == "POST":
         # Handle form submission
