@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, url_for, request
+from flask import Blueprint, Flask, render_template, url_for, request, session
 import firesecure
 
 register_layout = Blueprint('register_api', __name__)
@@ -12,7 +12,9 @@ def sign_up_page():
         password = request.form.get("inputPassword")
         # Actual Registration are handled in local file firesecure.py
         try:
-            firesecure.register_with_email(email, password)
+            user = firesecure.register_with_email(email, password)
+            session['ID'] = user['localID']
+            session.permanent = True
             return render_template("signup.html", success=True)
         except ValueError as err:
             return render_template("signup.html", success=False, error=err)

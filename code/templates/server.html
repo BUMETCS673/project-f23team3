@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Better Menu </title>
+{% endblock %}
+{% block body %}
+<h1>Orders List</h1>
+
+{% if orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Table ID</th>
+                <th>Customer ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Requests</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_id }}</td>
+                    <td>{{ order.table_id }}</td>
+                    <td>{{ order.customer_id }}</td>
+                    <td>{{ order.date }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>${{ order.payment }}</td>
+                    <td>{{ order.requests }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No orders found.</p>
+{% endif %}
+
+{% endblock %}
