@@ -11,7 +11,7 @@ class Orders(Base):
     date = db.Column(db.Text)
     status = db.Column(db.Text)
     payment = db.Column(db.Integer)
-    requests = db.Column(db.Text)
+    request = db.Column(db.Text)
 
 
 class Ingredients(Base):
@@ -31,7 +31,7 @@ class Reviews(Base):
 
 class Customers(Base):
     id = db.Column(db.Text, primary_key=True)
-    preferred_name = db.Column(db.Text)
+    name = db.Column(db.Text)
     email = db.Column(db.Text)
 
 
@@ -70,7 +70,7 @@ class Cart(Base):
 
 class Dining_tables(Base):
     id = db.Column(db.Integer, primary_key=True)
-    server_id = db.Column(db.Text, db.ForeignKey('Staff.id'))
+    server = db.Column(db.Text, db.ForeignKey('Staff.id'))
     status = db.Column(db.Text)
     capacity = db.Column(db.Integer)
 

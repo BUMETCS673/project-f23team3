@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, redirect, session
 from datetime import timedelta
 from Models import db
 from LoginPage import login_layout
@@ -16,7 +16,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
-
 db.init_app(app)
 app.register_blueprint(login_layout)
 app.register_blueprint(register_layout)
@@ -30,6 +29,12 @@ app.register_blueprint(server_layout)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect('/login')
 
 
 if __name__ == "__main__":
