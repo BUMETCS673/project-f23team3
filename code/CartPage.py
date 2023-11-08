@@ -15,3 +15,10 @@ def cart():
         return jsonify({'message': 'Order placed and paid', 'order_id': new_order.id})
     else:
         return render_template("cart.html")
+
+@cart_layout.route("/cart/order", methods=['POST', 'GET'])
+def cart_order():
+    if request.method == 'POST':
+        return jsonify({'message': 'Order placed'})
+    else:
+        return render_template("cart.html")

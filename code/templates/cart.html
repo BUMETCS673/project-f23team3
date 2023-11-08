@@ -30,8 +30,10 @@
             <label for="dish_name">Enter Dish Name</label><input type="text" name="dish_name" id="dish_name" class="form-control w-50 mb-3">
             <label for="quantity">Quantity</label><input type="text" name="quantity" id="quantity" class="form-control w-50 mb-3">
             <input type="submit" value="Add item" class="btn btn-primary mb-2">
-            <input type="submit" value="Order" class="btn btn-success">
         </form>
     </div>
+    <form action="/cart/order" method="POST" class="d-flex justify-content-center flex-column align-items-center">
+            <input type="submit" value="Order" class="btn btn-success">
+    </form>
 </div>
 {% endblock %}
