@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu QR Codes</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .qr-code {
+            max-width: 200px;
+            margin: 30px auto;
+        }
+        .container {
+            text-align: center;
+        }
+        .table-title {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Our Restaurant!</h1>
+        <p class="lead">Scan the QR code on your table to order:</p>
+        <div class="row">
+            {% for table, qr_code in table_qr_codes.items() %}
+            <div class="col-md-4">
+                <h5 class="table-title">Table {{ table }}</h5>
+                <img src="data:image/png;base64,{{ qr_code }}" class="qr-code img-thumbnail" alt="QR Code for Table {{ table }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Optional JavaScript and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
