@@ -31,7 +31,7 @@ def index():
         img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
         table_qr_codes[table] = img_str
 
-    return render_template('index.html', table_qr_codes=table_qr_codes)
+    return render_template('scan.html', table_qr_codes=table_qr_codes)
 
 
 @app.route('/order/<table_id>')
@@ -43,4 +43,5 @@ def order(table_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
