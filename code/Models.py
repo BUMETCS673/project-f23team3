@@ -7,7 +7,7 @@ class Orders(Base):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
     table_id = db.Column(db.Integer, db.ForeignKey('dining_tables.id'))
-    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+    customer_id = db.Column(db.Text, db.ForeignKey('customers.id'))
     date = db.Column(db.Text)
     status = db.Column(db.Text)
     payment = db.Column(db.Integer)
@@ -18,22 +18,22 @@ class Ingredients(Base):
     __tablename__ = 'ingredients'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
-    cost = db.Column(db.Float)
+    cost = db.Column(db.REAL)
     expiration_date = db.Column(db.Text)
-    quantity_left = db.Column(db.Float)
+    quantity_left = db.Column(db.REAL)
 
 
 class Reviews(Base):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
-    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+    dish_id = db.Column(db.Integer, db.ForeignKey('Order.id'))
+    customer_id = db.Column(db.Text, db.ForeignKey('Customer.id'))
     feedback = db.Column(db.Text)
 
 
 class Customers(Base):
     __tablename__ = 'customers'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Text, primary_key=True)
     name = db.Column(db.Text)
     email = db.Column(db.Text)
 
@@ -44,20 +44,23 @@ class Compositions(Base):
     ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredients.id'), primary_key=True)
 
 
-class Dish_Label(Base):
-    __tablename__ = 'dish_label'
-    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
-    label = db.Column(db.Text, primary_key=True)
-
-
 class Dishes(Base):
     __tablename__ = 'dishes'
     id = db.Column(db.Integer, primary_key=True)
+    main_dish_id = db.Column(db.Integer)
     name = db.Column(db.Text)
     description = db.Column(db.Text)
-    cost = db.Column(db.Float)
+    cost = db.Column(db.REAL)
     pic_url = db.Column(db.Text)
     num_left = db.Column(db.Integer)
+
+
+class General_dishes(Base):
+    __tablename__ = 'general_dishes'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    description = db.Column(db.Text)
+    pic_url = db.Column(db.Text)
 
 
 class Requests(Base):
@@ -92,4 +95,3 @@ class Staff(Base):
     email = db.Column(db.Text)
     role = db.Column(db.Text)
     status = db.Column(db.Text)
-

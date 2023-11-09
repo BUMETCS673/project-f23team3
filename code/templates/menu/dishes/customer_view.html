@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title> Main Menu </title>
+<title> Dishes </title>
 {% endblock %}
 
 {% block body %}
-    <h1>Main Menu Items</h1>
+    <h1>Dishes</h1>
     <div class="menu-container">
-    {% if full_menu_items %}
-        {% for e in full_menu_items %}
+    {% if dishes_items %}
+        {% for e in dishes_items %}
             <div class="menu-item">
-                <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Menu Image">
+                <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Dish Image">
                 <h3>{{ e.name }} | {{ e.price }}</h3>
                 <p>{{ e.description }}</p>
+                <a href="{{ url_for('cart_layout.add_to_cart', dish_id=e.id) }}">Add to Cart</a>
+
             </div>
         {% endfor %}
     {% else %}
@@ -22,5 +24,5 @@
         </div>
     {% endif %}
     </div>
-    <div><a href="{{ url_for('main_menu.customer_index') }}" class="back-button">Back to Main Menu</a></div>
+
 {% endblock %}
