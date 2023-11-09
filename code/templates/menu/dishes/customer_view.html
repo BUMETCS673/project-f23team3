@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title> Dishes </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu/customer_view.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -13,7 +13,7 @@
                 <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Dish Image">
                 <h3>{{ e.name }} | {{ e.price }}</h3>
                 <p>{{ e.description }}</p>
-                <a href="{{ url_for('cart_layout.add_to_cart', dish_id=e.id) }}">Add to Cart</a>
+                <a href="{{ url_for('cart_layout.add_to_cart', dish_id=e.id) }}" class="mainmenu-link">Add to Cart</a>
 
             </div>
         {% endfor %}
