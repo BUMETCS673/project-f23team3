@@ -70,8 +70,8 @@ class Requests(Base):
 
 
 class Cart(Base):
-    user_id = db.Column(db.Text, db.ForeignKey('Customer.id'), primary_key=True)
-    dish_id = db.Column(db.Integer, db.ForeignKey('Dish.id'), primary_key=True)
+    user_id = db.Column(db.Text, db.ForeignKey('Customers.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('Menu_dishes.id'), primary_key=True)
     quantity = db.Column(db.Integer)
     special_requests = db.Column(db.Text)
 
