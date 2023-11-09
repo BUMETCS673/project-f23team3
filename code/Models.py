@@ -11,7 +11,7 @@ class Orders(Base):
     date = db.Column(db.Text)
     status = db.Column(db.Text)
     payment = db.Column(db.Integer)
-    requests = db.Column(db.Text)
+    request = db.Column(db.Text)
 
 
 class Ingredients(Base):
@@ -31,7 +31,7 @@ class Reviews(Base):
 
 class Customers(Base):
     id = db.Column(db.Text, primary_key=True)
-    preferred_name = db.Column(db.Text)
+    name = db.Column(db.Text)
     email = db.Column(db.Text)
 
 
@@ -45,13 +45,21 @@ class Dish_Label(Base):
     label = db.Column(db.Text, primary_key=True)
 
 
-class Dishes(Base):
+class Menu_dishes(Base):
     id = db.Column(db.Integer, primary_key=True)
+    main_dish_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
     description = db.Column(db.Text)
     cost = db.Column(db.REAL)
     pic_url = db.Column(db.Text)
     num_left = db.Column(db.Integer)
+
+
+class Menu_main_dishes(Base):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    description = db.Column(db.Text)
+    pic_url = db.Column(db.Text)
 
 
 class Requests(Base):
@@ -70,7 +78,7 @@ class Cart(Base):
 
 class Dining_tables(Base):
     id = db.Column(db.Integer, primary_key=True)
-    server_id = db.Column(db.Text, db.ForeignKey('Staff.id'))
+    server = db.Column(db.Text, db.ForeignKey('Staff.id'))
     status = db.Column(db.Text)
     capacity = db.Column(db.Integer)
 
