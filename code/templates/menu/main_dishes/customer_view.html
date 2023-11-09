@@ -1,4 +1,4 @@
-{% extends layout %}
+{% extends 'base.html' %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu/customer_view.css') }}">
@@ -6,14 +6,10 @@
 {% block body %}
     <h1>Main Menu Items</h1>
     <div class="menu-container">
-        {% for e in main_dishes %}
-            <a href="\dishes_customer_view\{{ e.id }}" class="mainmenu-link">
+        {% for e in main_menu_items %}
+            <a href="{{ url_for('customer_full_menu_index', main_menu_id=e.id) }}" class="mainmenu-link">
                 <div class="menu-item">
-                    {% if e.pic_url %}
-                        <img src="{{ e.pic_url }}" alt="Main Menu Image" class="img-responsive" style="max-width: 100%; height: 200px; object-fit: cover;">
-                    {% else %}
-                        <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Menu Image" class="img-responsive" style="max-width: 100%; height: 200px; object-fit: cover;">
-                    {% endif %}
+                    <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Menu Image">
                     <h3>{{ e.name }}</h3>
                     <p>{{ e.description }}</p>
                 </div>
