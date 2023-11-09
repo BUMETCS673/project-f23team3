@@ -1,5 +1,5 @@
-from flask import Blueprint, Flask, render_template, url_for, request
-import firesecure
+from flask import Blueprint, render_template, request, session
+import CloudOP
 
 register_layout = Blueprint('register_api', __name__)
 
@@ -10,9 +10,10 @@ def sign_up_page():
         # Handle form submission
         email = request.form.get("inputEmail")
         password = request.form.get("inputPassword")
-        # Actual Registration are handled in local file firesecure.py
+        # Actual Registration are handled in local file CloudOP.py
         try:
-            firesecure.register_with_email(email, password)
+            user = CloudOP.register_with_email(email, password)
+            session['user'] = user
             return render_template("signup.html", success=True)
         except ValueError as err:
             return render_template("signup.html", success=False, error=err)

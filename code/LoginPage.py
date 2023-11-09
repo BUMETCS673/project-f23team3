@@ -1,5 +1,6 @@
-from flask import Blueprint, Flask, render_template, url_for, request
-import firesecure
+from flask import Blueprint, render_template, request, session
+import CloudOP
+import DataOP
 
 login_layout = Blueprint('login_api', __name__)
 
@@ -10,12 +11,24 @@ def login_page():
         # Handle form submission
         email = request.form.get("inputEmail")
         password = request.form.get("inputPassword")
-        # Actual Registration are handled in local file firesecure.py
+        # Actual login are handled in local file CloudOP.py
         try:
-            user = firesecure.login_with_email(email, password)
+            user = CloudOP.login_with_email(email, password)
+            session['user'] = user
+            if DataOP.is_staff(user['localId']):
+                return render_template('staff.html', name=DataOP.find_name_from_id(user['localId']))
             return render_template("login.html", success=True)
         except ValueError as err:
             return render_template("login.html", success=False, error=err)
     else:
-        # Handle initial GET request to render the registration page
-        return render_template("login.html")
+        # Handle GET request to render the login page
+        try:
+            user_id = session['user']['localId']
+        except KeyError:
+            # User Not Logged in
+            return render_template("login.html")
+        name = DataOP.find_name_from_id(user_id)
+        err = "You are Logged in as " + name + " already."
+        if DataOP.is_staff(user_id):
+            return render_template('staff.html', name=DataOP.find_name_from_id(user_id))
+        return render_template("login.html", success=False, error=err)
