@@ -47,7 +47,7 @@ class Dish_Label(Base):
 
 class Menu_dishes(Base):
     id = db.Column(db.Integer, primary_key=True)
-    main_dish_id = db.Column(db.Integer, primary_key=True)
+    main_dish_id = db.Column(db.Integer, db.ForeignKey('Menu_main_dishes.id'))
     name = db.Column(db.Text)
     description = db.Column(db.Text)
     cost = db.Column(db.REAL)
