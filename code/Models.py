@@ -47,7 +47,7 @@ class Compositions(Base):
 class Dishes(Base):
     __tablename__ = 'dishes'
     id = db.Column(db.Integer, primary_key=True)
-    main_dish_id = db.Column(db.Integer)
+    main_dish_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
     description = db.Column(db.Text)
     cost = db.Column(db.REAL)
