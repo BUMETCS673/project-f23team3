@@ -7,6 +7,7 @@ from FullMenu import full_menu
 from MainMenu import main_menu
 from CartPage import cart_layout
 from ConfirmPage import confirm_layout
+from OrderPage import order_layout
 
 
 app = Flask(__name__)
