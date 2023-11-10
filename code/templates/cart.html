@@ -6,7 +6,7 @@
 {% block body %}
 <div class="content container">
     <h1 class="text-center mt-5">Cart</h1>
-    {% if tasks|length < 0 %}
+    {% if cart_items|length < 0 %}
     <h4 class="text-center mt-4">Cart empty</h4>
     {% else %}
     <div class="table-responsive mt-4">
@@ -20,18 +20,38 @@
         </thead>
         <tbody>
           <!-- Your table rows go here -->
+            <tr>
+                <td>item 1</td>
+                <td>2</td>
+                <td>
+                    <a href="/delete/1">Delete</a>
+                </td>
+            </tr>
+            {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.dish_id }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <a href="/delete/{{item.dish_id}}">Delete</a>
+                        <br>
+                        <a href="/update/{{item.dish_id}}">Update</a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
       </table>
     </div>
     {% endif %}
 
     <div class="form mt-5">
-        <form action="/" method="POST" class="d-flex justify-content-center flex-column align-items-center">
-            <h4 class="text-center mt-4">Enter Dish Name</h4>
-            <input type="text" name="test item" id="test_item" class="form-control w-50 mb-3">
+        <form action="/cart" method="POST" class="d-flex justify-content-center flex-column align-items-center">
+            <label for="dish_name">Enter Dish Name</label><input type="text" name="dish_name" id="dish_name" class="form-control w-50 mb-3">
+            <label for="quantity">Quantity</label><input type="text" name="quantity" id="quantity" class="form-control w-50 mb-3">
             <input type="submit" value="Add item" class="btn btn-primary mb-2">
-            <input type="submit" value="Order" class="btn btn-success">
         </form>
     </div>
+    <form action="/cart/order" method="POST" class="d-flex justify-content-center flex-column align-items-center">
+            <input type="submit" value="Order" class="btn btn-success">
+    </form>
 </div>
 {% endblock %}
