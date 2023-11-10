@@ -11,7 +11,7 @@ class Orders(Base):
     date = db.Column(db.Text)
     status = db.Column(db.Text)
     payment = db.Column(db.Integer)
-    requests = db.Column(db.Text)
+    request = db.Column(db.Text)
 
 
 class Ingredients(Base):
@@ -31,17 +31,17 @@ class Reviews(Base):
 
 class Customers(Base):
     id = db.Column(db.Text, primary_key=True)
-    preferred_name = db.Column(db.Text)
+    name = db.Column(db.Text)
     email = db.Column(db.Text)
 
 
 class Compositions(Base):
-    dish_id = db.Column(db.Integer, db.ForeignKey('Dish.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('Dishes.id'), primary_key=True)
     ingredient_id = db.Column(db.Integer, db.ForeignKey('Ingredient.id'), primary_key=True)
 
 
 class Dish_Label(Base):
-    dish_id = db.Column(db.Integer, db.ForeignKey('Dish.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('Dishes.id'), primary_key=True)
     label = db.Column(db.Text, primary_key=True)
 
 
@@ -56,23 +56,21 @@ class Dishes(Base):
 
 class Requests(Base):
     order_id = db.Column(db.Integer, db.ForeignKey('Order.id'), primary_key=True)
-    dish_id = db.Column(db.Integer, db.ForeignKey('Dish.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('Dishes.id'), primary_key=True)
     quantity = db.Column(db.Integer)
     special_requests = db.Column(db.Text)
 
 
 class Cart(Base):
-    #user_id = db.Column(db.Text, db.ForeignKey('Customer.id'), primary_key=True)
-    #dish_id = db.Column(db.Integer, db.ForeignKey('Dish.id'), primary_key=True)
-    user_id = db.Column(db.Text, primary_key=True)
-    dish_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Text, db.ForeignKey('Customers.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('Dishes.id'), primary_key=True)
     quantity = db.Column(db.Integer)
     special = db.Column(db.Text)
 
 
 class Dining_tables(Base):
     id = db.Column(db.Integer, primary_key=True)
-    server_id = db.Column(db.Text, db.ForeignKey('Staff.id'))
+    server = db.Column(db.Text, db.ForeignKey('Staff.id'))
     status = db.Column(db.Text)
     capacity = db.Column(db.Integer)
 
