@@ -24,7 +24,7 @@ def cart():
         new_order = Cart(user_id=1, dish_id=int(dish_name), quantity=quantity, special=" ")
         db.session.add(new_order)
         db.session.commit()
-        return render_template("cart.html")
+        return redirect("/cart")
         # return jsonify({'message': 'Order placed and paid', 'order_id': new_order.dish_id})
     else:
         cart_items = Cart.query.filter_by(user_id=1).all()
@@ -39,6 +39,12 @@ def cart_order():
     else:
         return render_template("cart.html")
 
+@app.route('/cart/delete/<int:id>')
+def delete(id):
+    item = Cart.query.filter_by(dish_id=id, user_id=1).first()
+    db.session.delete(item)
+    db.session.commit()
+    return redirect("/cart")
 
 @app.route("/login", methods=["GET", "POST"])
 def login_page():
