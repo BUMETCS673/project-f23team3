@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 import os
@@ -13,5 +13,7 @@ db = SQLAlchemy(app)
 with app.app_context():
     db.create_all()
 app.config.from_object(__name__)
+
+# Do not edit the below import, it is by design.
 import views
 

@@ -1,5 +1,4 @@
 from Models import *
-from flask import jsonify
 
 
 def get_orders_from_staff(staff_id):

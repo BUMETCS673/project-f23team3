@@ -145,7 +145,6 @@ def order_page():
 @app.route('/menu')  # List all menu items to the customer
 def customer_main_menu_index():
     main_menu_items = Dishes.query.all()
-    default_image = 'mm.png'
     return render_template('./menu/main_menu/customer_view.html', main_menu_items=main_menu_items)
     # return render_template('menu/main_menu/customer_view.html')
 
@@ -166,7 +165,6 @@ def main_menu_insert_post():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
-        image = request.files['image']
         main_menu = Dishes(name=name, description=description)
         db.session.add(main_menu)
         db.session.commit()

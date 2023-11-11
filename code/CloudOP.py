@@ -1,4 +1,6 @@
-import pyrebase, requests, json
+import pyrebase
+import requests
+import json
 from Config import firebase_config as config
 
 # Initialize firebase
