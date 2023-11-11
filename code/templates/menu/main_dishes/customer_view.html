@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu/customer_view.css') }}">
+    <link href="{{ url_for('static', filename='css/menu/customer_view.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block body %}
     <h1>Main Dishes</h1>
@@ -9,9 +9,9 @@
         {% for e in main_dishes %}
             <a href="{{ url_for('menu_dishes.customer_index', main_dish_id=e.id) }}" class="mainmenu-link">
                 <div class="menu-item">
-                    <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Menu Image">
+                    <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Dish Image">
                     <h3>{{ e.name }}</h3>
-                    <p>{{ e.description }}</p>
+
                 </div>
            </a>
         {% endfor %}

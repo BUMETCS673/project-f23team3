@@ -7,7 +7,7 @@ Base = db.Model
 class Orders(Base):
     id = db.Column(db.Integer, primary_key=True)
     table_id = db.Column(db.Text, db.ForeignKey('DiningTable.id'))
-    customer_id = db.Column(db.Text, db.ForeignKey('Customer.id'))
+    customer_id = db.Column(db.Text, db.ForeignKey('Customers.id'))
     date = db.Column(db.Text)
     status = db.Column(db.Text)
     payment = db.Column(db.Integer)
@@ -25,7 +25,7 @@ class Ingredients(Base):
 class Reviews(Base):
     id = db.Column(db.Integer, primary_key=True)
     dish_id = db.Column(db.Integer, db.ForeignKey('Order.id'))
-    customer_id = db.Column(db.Text, db.ForeignKey('Customer.id'))
+    customer_id = db.Column(db.Text, db.ForeignKey('Customers.id'))
     feedback = db.Column(db.Text)
 
 
@@ -33,6 +33,8 @@ class Customers(Base):
     id = db.Column(db.Text, primary_key=True)
     name = db.Column(db.Text)
     email = db.Column(db.Text)
+
+
 
 
 class Compositions(Base):
@@ -63,18 +65,10 @@ class Menu_main_dishes(Base):
 
 
 class Requests(Base):
-    order_id = db.Column(db.Integer, db.ForeignKey('Order.id'), primary_key=True)
-    dish_id = db.Column(db.Integer, db.ForeignKey('Dish.id'), primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('Orders.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('Dishes.id'), primary_key=True)
     quantity = db.Column(db.Integer)
     special_requests = db.Column(db.Text)
-
-
-class Cart(Base):
-    user_id = db.Column(db.Text, db.ForeignKey('Customers.id'), primary_key=True)
-    dish_id = db.Column(db.Integer, db.ForeignKey('Menu_dishes.id'), primary_key=True)
-    quantity = db.Column(db.Integer)
-    special_requests = db.Column(db.Text)
-
 
 class Dining_tables(Base):
     id = db.Column(db.Integer, primary_key=True)
@@ -90,3 +84,10 @@ class Staffs(Base):
     email = db.Column(db.Text)
     role = db.Column(db.Text)
     status = db.Column(db.Text)
+
+
+class Cart(Base):
+    user_id = db.Column(db.Text, primary_key=True) #, db.ForeignKey('Customers.id')
+    dish_id = db.Column(db.Integer,  primary_key=True) #db.ForeignKey('Menu_dishes.id'),
+    quantity = db.Column(db.Integer)
+    special_requests = db.Column(db.Text)
