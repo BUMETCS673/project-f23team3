@@ -1,13 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>"Better Menu-Login"</title>
-	<link rel="stylesheet" href="../static/main.css">
-	<!-- Bootstrap here -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</head>
-<body>
-<!-- Cart Layout -->
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Shopping Cart </title>
+{% endblock %}
+{% block body %}
+<div class="content container">
+    <h1 class="text-center mt-5">Cart</h1>
+    {% if tasks|length < 0 %}
+    <h4 class="text-center mt-4">Cart empty</h4>
+    {% else %}
+    <div class="table-responsive mt-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Your table rows go here -->
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    <div class="form mt-5">
+        <form action="/" method="POST" class="d-flex justify-content-center flex-column align-items-center">
+            <h4 class="text-center mt-4">Enter Dish Name</h4>
+            <input type="text" name="test item" id="test_item" class="form-control w-50 mb-3">
+            <input type="submit" value="Add item" class="btn btn-primary mb-2">
+            <input type="submit" value="Order" class="btn btn-success">
+        </form>
+    </div>
+</div>
+{% endblock %}

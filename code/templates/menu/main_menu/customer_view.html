@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu/customer_view.css') }}">
+{% endblock %}
+{% block body %}
+    <h1>Main Menu Items</h1>
+    <div class="menu-container">
+        {% for e in main_menu_items %}
+            <a href="{{ url_for('full_menu.customer_index', main_menu_id=e.id) }}" class="mainmenu-link">
+                <div class="menu-item">
+                    <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Menu Image">
+                    <h3>{{ e.name }}</h3>
+                    <p>{{ e.description }}</p>
+                </div>
+           </a>
+        {% endfor %}
+    </div>
+{% endblock %}
