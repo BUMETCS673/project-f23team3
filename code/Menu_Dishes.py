@@ -1,5 +1,5 @@
 from flask import Blueprint, Flask, render_template, url_for, request, redirect
-from Models import db, Dish_Label, Menu_dishes
+from Models import db, Menu_dishes
 
 menu_dishes = Blueprint('menu_dishes', __name__)
 
@@ -19,7 +19,7 @@ def insert_post():
             'description': request.form.get('description'),
             'price': request.form.get('price')
         }
-        full_menu = Dish_Label(**data)
+        full_menu = Menu_dishes(**data)
         db.session.add(full_menu)
         db.session.commit()
         return redirect(url_for('dishes.insert_index'))
