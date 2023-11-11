@@ -1,14 +1,68 @@
-{% extends layout %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Restaurant</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-{% block body %}
-    <div class="container mt-5">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Online Restaurant</a>
+</nav>
+
+ChatGPT
+在HTML中直接添加动态功能（如搜索引擎和实时更新UI的能力）通常需要JavaScript或JavaScript框架支持，如React。然而，您的代码示例是静态的HTML，它不包括React或JavaScript，这限制了可以实现的功能。此外，React Bootstrap 需要在 React 环境中工作，它不适用于普通的HTML文件。
+
+不过，我可以提供一个示例，其中包含一个静态的搜索框和一些静态的菜品推荐卡片，但请注意，没有后端或JavaScript代码，搜索框不会实际工作。您将需要将这段代码集成到React组件中，并添加必要的事件处理和状态管理逻辑来使其动态工作。
+
+这是您的HTML代码的扩展，包括了一个搜索框和一些推荐卡片的布局：
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Restaurant</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Online Restaurant</a>
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/menu">Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cart">Cart</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+<!-- Main Content -->
+<div class="container mt-5">
     <div class="row justify-content-center">
         <!-- Card for Login -->
         <div class="col-md-3 mb-4">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">Login</h5>
-                    <p class="card-text">Access your account or make orders.</p>
+                    <p class="card-text">Access your account.</p>
                     <a href="/login" class="btn btn-primary">Go to Login</a>
                 </div>
             </div>
@@ -33,6 +87,41 @@
                 </div>
             </div>
         </div>
+        <!-- Card for Cart -->
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cart</h5>
+                    <p class="card-text">Review your orders.</p>
+                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-{% endblock %}
+
+<div class="container mt-5">
+    <!-- Search Bar -->
+    <div class="row mb-4">
+        <div class="col">
+            <input class="form-control" type="search" placeholder="Search for dishes..." aria-label="Search">
+        </div>
+    </div>
+
+    <!-- Cards for Dish Recommendations -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="path-to-your-dish-image.jpg" class="card-img-top" alt="Dish Name">
+                <div class="card-body">
+                    <h5 class="card-title">Dish Name</h5>
+                    <p class="card-text">Some description of the dish.</p>
+                    <a href="#" class="btn btn-primary">Order Now</a>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat the above div block for each recommended dish -->
+    </div>
+</div>
+</body>
+</html>
