@@ -2,8 +2,8 @@ from Models import *
 
 
 def get_orders_from_staff(staff_id):
-    # Find all orders served by the given staff member
-    tables_served = get_tables_from_staff(staff_id)
+    # Find all dining tables served by the given staff member
+    tables_served = DiningTable.query.filter_by(server=staff_id).all()
 
     table_ids = [table.id for table in tables_served]
 
@@ -12,18 +12,11 @@ def get_orders_from_staff(staff_id):
     return orders
 
 
-def get_tables_from_staff(staff_id):
-    # Find all dining tables served by the given staff member
-    tables_serving = DiningTable.query.filter_by(server=staff_id).all()
-
-    return tables_serving
-
-
 def find_name_from_id(user_id):
     # Check if the id is in the Customers table
     customer = Customer.query.filter_by(id=user_id).first()
     if customer:
-        return customer.name
+        return customer.preferred_name
     # Check if the id is in the Staffs table
     staff = Staff.query.filter_by(id=user_id).first()
     if staff:
@@ -59,9 +52,13 @@ def is_staff(user_id):
 
 
 def active_worker(user_id):
-    # Check if ID is active Staff or not, return is first row.
-    staff = Staff.query.filter_by(id=user_id, status='Active').first()
+    # Check if ID is Staff or not, return is first row.
+    staff = Staff.query.filter_by(id=user_id).first()
     if staff is None:
-        # ID not active Staff, show customer order
+        # ID not Staff, show customer order
+        return False
+    work = DiningTable.query.filter_by(server=user_id)
+    if work is None:
+        # Staff not working on any table, show customer order
         return False
     return True
