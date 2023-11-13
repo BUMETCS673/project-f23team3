@@ -1,4 +1,4 @@
-from flask import render_template, request, session, redirect, jsonify
+from flask import render_template, request, session, redirect, jsonify, url_for
 from CloudOP import register_with_email, login_with_email
 from DataOP import is_staff, find_name_from_id, active_worker, get_orders_from_staff
 from Models import *
@@ -21,13 +21,13 @@ def cart():
     if request.method == 'POST':
         dish_name = request.form.get('dish_name')
         quantity = request.form.get('quantity')
-        new_order = Cart(user_id=1, dish_id=int(dish_name), quantity=quantity, special=" ")
+        new_order = Cart(table_id=1, dish_id=int(dish_name), quantity=quantity, special=" ")
         db.session.add(new_order)
         db.session.commit()
         return redirect("/cart")
         # return jsonify({'message': 'Order placed and paid', 'order_id': new_order.dish_id})
     else:
-        cart_items = Cart.query.filter_by(user_id=1).all()
+        cart_items = Cart.query.filter_by(table_id=1).all()
         return render_template("cart.html", cart_items=cart_items)
         # return render_template("cart.html")
 
@@ -111,36 +111,9 @@ def server():
 
 @app.route('/completed-orders')
 def completed_orders():
-    c_orders = Orders.query.filter_by(status='completed').all()
+    c_orders = Order.query.filter_by(status='completed').all()
     return render_template('completed_orders.html', orders=c_orders)
 # list all the completed orders
-
-
-@app.route('/fm_insert_form')  # Full menu insert form
-def full_menu_insert_index():
-    main_menu_data = db.session.query(Dishes.id, Dishes.name).all()
-    return render_template('./menu/full_menu/insert.html', main_menus=main_menu_data)
-
-
-@app.route('/fm_insert_post', methods=['POST'])  # Full menu insert action method for POST
-def full_menu_insert_post():
-    if request.method == 'POST':
-        data = {
-            'main_menu_id': request.form.get('main_menu_id'),
-            'name': request.form.get('name'),
-            'description': request.form.get('description'),
-            'price': request.form.get('price')
-        }
-        full_menu = Dish_Label(**data)
-        db.session.add(full_menu)
-        db.session.commit()
-        return redirect('/fm_insert_form')
-
-
-@app.route('/fm_customer_view/<int:main_menu_id>')
-def customer_full_menu_index(main_menu_id):
-    full_menu_items = Dish_Label.query.filter_by(dish_id=main_menu_id).all()
-    return render_template('./menu/full_menu/customer_view.html', full_menu_items=full_menu_items)
 
 
 @app.route('/confirm')
@@ -148,30 +121,58 @@ def order_page():
     return render_template('./confirm.html')
 
 
-@app.route('/menu')  # List all menu items to the customer
-def customer_main_menu_index():
-    main_menu_items = Dishes.query.all()
-    return render_template('./menu/main_menu/customer_view.html', main_menu_items=main_menu_items)
-    # return render_template('menu/main_menu/customer_view.html')
+@app.route('/menu')
+def customer_index():
+    main_dishes = DishType.query.all()
+    return render_template('./menu/main_dishes/customer_view.html', main_dishes=main_dishes)
 
 
-@app.route("/mm_admin_index", methods=["GET"])  # View all menu info for the admin user
+@app.route("/general_admin_index", methods=["GET"])  # View all menu info for the admin user
 def admin_index():
-    main_menu_items = Dishes.query.all()
-    return render_template('./menu/main_menu/admin_view.html', main_menu_items=main_menu_items)
+    main_dish_items = DishType.query.all()
+    return render_template('./menu/main_dishes/admin_view.html', main_menu_items=main_dish_items)
 
 
-@app.route('/mm_insert_form')  # main menu insert form
-def main_menu_insert_index():
-    return render_template('./menu/main_menu/insert.html')
+@app.route('/general_insert_form')  # main dishes insert form
+def general_insert_index():
+    return render_template('./menu/main_dishes/insert.html')
 
 
-@app.route('/mm_insert_post', methods=['POST'])  # main menu insert action method for POST
-def main_menu_insert_post():
+@app.route('/insert_general_dishes', methods=['POST'])
+def general_insert_post():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
-        main_menu = Dishes(name=name, description=description)
-        db.session.add(main_menu)
+        image = request.files['image']
+        main_dish = DishType(name=name, description=description)
+        db.session.add(main_dish)
         db.session.commit()
-        return redirect('/mm_insert_form')
+        return redirect(url_for('app.general_insert_index'))
+
+
+@app.route('/dishes_insert_form')  # dishes menu insert form
+def dishes_insert_index():
+    main_menu_data = db.session.query(Dish.id, Dish.name).all()
+    return render_template('menu/dishes/insert.html', main_menus=main_menu_data)
+
+
+@app.route('/dishes_insert_post', methods=['POST'])  # dishes menu insert action method for POST
+def dishes_insert_post():
+    if request.method == 'POST':
+        data = {
+
+            'main_menu_id': request.form.get('main_menu_id'),
+            'name': request.form.get('name'),
+            'description': request.form.get('description'),
+            'price': request.form.get('price')
+        }
+        full_menu = Dish(**data)
+        db.session.add(full_menu)
+        db.session.commit()
+        return redirect(url_for('app.dishes_insert_index'))
+
+
+@app.route('/dishes_customer_view/<int:general_dish_id>')
+def dishes_customer_index(general_dish_id):
+    dishes_items = Dish.query.filter_by(general_dish_id=general_dish_id).all()
+    return render_template('menu/dishes/customer_view.html', dishes_items=dishes_items)
