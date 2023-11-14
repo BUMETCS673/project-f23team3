@@ -40,8 +40,8 @@ def cart_order():
         return render_template("cart.html")
 
 @app.route('/cart/delete/<int:id>')
-def delete(id):
-    item = Cart.query.filter_by(dish_id=id, user_id=1).first()
+def delete(dish_id):
+    item = Cart.query.filter_by(dish_id=dish_id, user_id=1).first()
     db.session.delete(item)
     db.session.commit()
     return redirect("/cart")
@@ -124,18 +124,18 @@ def order_page():
 @app.route('/menu')
 def customer_index():
     main_dishes = DishType.query.all()
-    return render_template('./menu/main_dishes/customer_view.html', main_dishes=main_dishes)
+    return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes)
 
 
 @app.route("/general_admin_index", methods=["GET"])  # View all menu info for the admin user
 def admin_index():
     main_dish_items = DishType.query.all()
-    return render_template('./menu/main_dishes/admin_view.html', main_menu_items=main_dish_items)
+    return render_template('./menu/main_menu/admin_view.html', main_menu_items=main_dish_items)
 
 
 @app.route('/general_insert_form')  # main dishes insert form
 def general_insert_index():
-    return render_template('./menu/main_dishes/insert.html')
+    return render_template('./menu/main_menu/insert.html')
 
 
 @app.route('/insert_general_dishes', methods=['POST'])
@@ -153,7 +153,7 @@ def general_insert_post():
 @app.route('/dishes_insert_form')  # dishes menu insert form
 def dishes_insert_index():
     main_menu_data = db.session.query(Dish.id, Dish.name).all()
-    return render_template('menu/dishes/insert.html', main_menus=main_menu_data)
+    return render_template('menu/full_menu/insert.html', main_menus=main_menu_data)
 
 
 @app.route('/dishes_insert_post', methods=['POST'])  # dishes menu insert action method for POST
@@ -175,4 +175,4 @@ def dishes_insert_post():
 @app.route('/dishes_customer_view/<int:general_dish_id>')
 def dishes_customer_index(general_dish_id):
     dishes_items = Dish.query.filter_by(general_dish_id=general_dish_id).all()
-    return render_template('menu/dishes/customer_view.html', dishes_items=dishes_items)
+    return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items)
