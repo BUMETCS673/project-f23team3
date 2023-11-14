@@ -3,18 +3,18 @@ from Models import *
 
 def get_orders_from_staff(staff_id):
     # Find all dining tables served by the given staff member
-    tables_served = DiningTables.query.filter_by(server=staff_id).all()
+    tables_served = DiningTable.query.filter_by(server=staff_id).all()
 
     table_ids = [table.id for table in tables_served]
 
-    orders = Orders.query.filter(Orders.table_id.in_(table_ids)).all()
+    orders = Order.query.filter(Order.table_id.in_(table_ids)).all()
 
     return orders
 
 
 def find_name_from_id(user_id):
     # Check if the id is in the Customers table
-    customer = Customers.query.filter_by(id=user_id).first()
+    customer = Customer.query.filter_by(id=user_id).first()
     if customer:
         return customer.preferred_name
     # Check if the id is in the Staffs table
@@ -33,10 +33,10 @@ def find_requests_from_order_id(order_id):
 
 
 def get_staff_from_order(order_id):
-    order = Orders.query.get(order_id)
+    order = Order.query.get(order_id)
     if order:
         table_id = order.table_id
-        dining_table = DiningTables.query.get(table_id)
+        dining_table = DiningTable.query.get(table_id)
         if dining_table:
             return dining_table.server
     return None
@@ -57,7 +57,7 @@ def active_worker(user_id):
     if staff is None:
         # ID not Staff, show customer order
         return False
-    work = DiningTables.query.filter_by(server=user_id)
+    work = DiningTable.query.filter_by(server=user_id)
     if work is None:
         # Staff not working on any table, show customer order
         return False
