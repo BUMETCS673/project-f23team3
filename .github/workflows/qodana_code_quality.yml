@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - Customer
+      - '*'
 
 jobs:
   qodana:
@@ -13,10 +13,19 @@ jobs:
       contents: write
       pull-requests: write
       checks: write
+
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Checkout repository'
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: 'Create file'
+        uses: actions/write-file@v3
+        with:
+          path: code/Config.py
+          content: ${{ secrets.FIREBASE }}
+
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2023.2
         env:
