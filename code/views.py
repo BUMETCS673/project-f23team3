@@ -79,12 +79,16 @@ def login_page():
 def sign_up_page():
     if request.method == "POST":
         # Handle form submission
+        preferred_name = request.form.get("inputName")
         email = request.form.get("inputEmail")
         password = request.form.get("inputPassword")
         # Actual Registration are handled in local file CloudOP.py
         try:
             user = register_with_email(email, password)
             session['user'] = user
+            new_user = Customer(id=user['localId'], name=preferred_name, email=email)
+            db.session.add(new_user)
+            db.session.commit()
             return render_template("signup.html", success=True)
         except ValueError as err:
             return render_template("signup.html", success=False, error=err)
