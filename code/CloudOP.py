@@ -1,4 +1,4 @@
-import pyrebase
+import pyrebaselite as pyrebase
 import requests
 import json
 from Config import firebase_config as config

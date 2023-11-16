@@ -1,44 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+{% block head %}
     <title>Restaurant Menu QR Codes</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            padding-top: 50px;
-        }
-        .qr-code {
-            max-width: 200px;
-            margin: 30px auto;
-        }
-        .container {
-            text-align: center;
-        }
-        .table-title {
-            margin: 20px 0;
-        }
-    </style>
-</head>
-<body>
+    <script>
+        const qrDecoder = new QRCodeDecoder();
+
+        // Add a click event listener to the QR scan button.
+        document.getElementById('qr-scan-button').addEventListener('click', () => {
+            // Start the QR scan process.
+            qrDecoder.decodeFromCamera()
+                .then((decodedQR) => {
+                    // The decoded QR code is now available in the `decodedQR` variable.
+                    // You can do whatever you want with it, such as displaying it to the user
+                    // or sending it to a server.
+
+                    // Display the decoded QR code to the user.
+                    document.getElementById('qr-code-result').innerHTML = decodedQR;
+                })
+                .catch((error) => {
+                    // An error occurred while scanning the QR code.
+                    // You can handle the error here.
+
+                    // Display an error message to the user.
+                    document.getElementById('qr-code-result').innerHTML = 'Error: ' + error;
+                });
+        });
+    </script>
+{% endblock %}
+{% block body %}
     <div class="container">
         <h1>Welcome to Our Restaurant!</h1>
-        <p class="lead">Scan the QR code on your table to order:</p>
-        <div class="row">
+        {% if success %}
+            <div class="row">
             {% for table, qr_code in table_qr_codes.items() %}
             <div class="col-md-4">
                 <h5 class="table-title">Table {{ table }}</h5>
                 <img src="data:image/png;base64,{{ qr_code }}" class="qr-code img-thumbnail" alt="QR Code for Table {{ table }}">
             </div>
             {% endfor %}
-        </div>
+            </div>
+        {% endif %}
+        <h2 class="lead">Scan the QR code on your table to order:</h2>
+        <button type="button" class="btn btn-primary" id="qr-scan-button">
+            <i class="bi bi-qr-code"></i>
+            Scan QR Code
+        </button>
     </div>
-
-    <!-- Optional JavaScript and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
+{% endblock %}
