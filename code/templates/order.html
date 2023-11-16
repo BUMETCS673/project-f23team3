@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Your Order</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .order-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,.05);
+            margin-top: 50px;
+            padding: 20px;
+        }
+        .menu-item {
+            border-bottom: 1px solid #f0f0f0;
+            padding: 10px 0;
+        }
+        .menu-title {
+            font-size: 1.5rem;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            margin-bottom: 20px;
+        }
+        .submit-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="order-container">
+                    <div class="text-center menu-title">
+                        Table {{ table_id }} - Place Your Order
+                    </div>
+                    <!-- 假设这里是点餐表单 -->
+                    <form action="/submit-order" method="post">
+                        <!-- 模拟一些菜单项 -->
+                        <div class="menu-item">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="item1" name="order">
+                                <label class="form-check-label" for="item1">Pizza - $10.99</label>
+                            </div>
+                        </div>
+                        <!-- 重复其他菜单项 -->
+                        <button type="submit" class="btn btn-primary btn-block submit-btn">Submit Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.2/umd.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
