@@ -21,10 +21,11 @@ jobs:
           fetch-depth: 0
 
       - name: 'Create file'
-        uses: actions/write-file@v3
+        uses: DamianReeves/write-file-action@master
         with:
           path: code/Config.py
           content: ${{ secrets.FIREBASE }}
+          write-mode: preserve
 
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2023.2
