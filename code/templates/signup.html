@@ -1,77 +1,42 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title> Register Page </title>
+<title> Register Page </title>
 {% endblock %}
 
 {% block body %}
-    <div class="position-relative" style="margin-left: 45px;">
-        <h2>Register with Email</h2>
-        <form action="{{ url_for('register_api.sign_up_page') }}" method="post">
-            <div class="row mb-3">
-                <label for="inputName" class="col-form-label">Name</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="inputName" name="inputName">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputEmail" class="col-form-label">Email</label>
-                <div class="col-sm-3">
-                    <input type="email" class="form-control" id="inputEmail" name="inputEmail">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputPassword" class="col-form-label">Password</label>
-                <div class="col-sm-3">
-                    <input type="password" class="form-control" id="inputPassword" name="inputPassword">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="retype_password" class="col-form-label">Retype Password</label>
-                <div class="col-sm-3">
-                    <input type="password" class="form-control" id="retype_password" name="inputPassword">
-                    <span class="error-message"></span>
-                </div>
-            </div>
-            <script>
-                // Add a keyup event listener to both password fields
-                document.getElementById('inputPassword').addEventListener('keyup', function() {
-                    // Check if the passwords match
-                    if (document.getElementById('inputPassword').value !== document.getElementById('retype_password').value) {
-                        // Display the error message
-                        document.querySelector('.error-message').textContent = 'Passwords must match.';
-                    } else {
-                        // Clear the error message
-                        document.querySelector('.error-message').textContent = '';
-                    }
-                });
+<div class="position-relative" style="margin-left: 45px;">
+    <h2>Register with Email</h2>
+      <form action="{{ url_for('sign_up_page') }}" method="post">
+          <div class="row mb-3">
+              <label for="inputName" class="col-form-label">Name</label>
+              <div class="col-sm-3">
+                  <input type="text" class="form-control" name="inputName">
+              </div>
+          </div>
+          <div class="row mb-3">
+        <label for="inputEmail" class="col-form-label">Email</label>
+        <div class="col-sm-3">
+          <input type="email" class="form-control" id="inputEmail" name="inputEmail">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="inputPassword" class="col-form-label">Password</label>
+        <div class="col-sm-3">
+          <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign up</button>
+    </form>
+</div>
 
-                // Add a submit event listener to the form
-                document.forms[0].addEventListener('submit', function(event) {
-                    // Prevent the form from submitting if the passwords don't match
-                    if (document.getElementById('inputPassword').value !== document.getElementById('retype_password').value) {
-                        event.preventDefault();
-                    }
-                    // If the form is submitted successfully, display a clear message
-                    if (event.target.status === 200) {
-                        document.querySelector('.clear-message').textContent = 'Success, please verify your email address before login.';
-                    }
-                });
-            </script>
-
-            <button type="submit" class="btn btn-primary">Sign up</button>
-        </form>
-    </div>
-
-    <div class="position-relative" style="margin-left: 45px;">
-        {% if success %}
-            <p style="color: green;">{{ success }}</p>
-        {% endif %}
-        {% if error %}
-            <p style="color: red;">{{ error }}</p>
-        {% endif %}
-
-        <div class="clear-message"></div>
-    </div>
+<div class="position-relative" style="margin-left: 45px;">
+  {% if success %}
+        <p style="color: green;">Success, please verify your email address before login.</p>
+  {% endif %}
+  {% if error %}
+        <p style="color: red;">{{ error }}</p>
+  {% endif %}
+</div>
 
 {% endblock %}
