@@ -12,7 +12,7 @@ job("Qodana") {
          }
       }
    }
-   container("jetbrains/qodana-<linter>") {
+   container("jetbrains/qodana-python:latest") {
        env["QODANA_TOKEN"] = Secrets("qodana-token")
        shellScript {
            content = """
