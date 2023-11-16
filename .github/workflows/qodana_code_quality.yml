@@ -24,7 +24,8 @@ jobs:
         uses: DamianReeves/write-file-action@master
         with:
           path: code/Config.py
-          content: ${{ secrets.FIREBASE }}
+          contents: |
+            ${{ secrets.FIREBASE }}
           write-mode: preserve
 
       - name: 'Qodana Scan'
