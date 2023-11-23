@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect, jsonify, url_for
 from CloudOP import register_with_email, login_with_email
-from DataOP import is_staff, find_name_from_id, active_worker, get_orders_from_staff
+from DataOP import *
 from Models import *
 from app import app
 
@@ -98,7 +98,7 @@ def sign_up_page():
 
 
 @app.route("/server", methods=['POST', 'GET'])
-def server():
+def server_landing():
     try:
         user_id = session['user']['localId']
     except KeyError:
@@ -107,7 +107,9 @@ def server():
     if active_worker(user_id):
         # Get the Newest list of all orders related to that Server ID
         orders_data = get_orders_from_staff(user_id)
-        return render_template("server.html", orders=orders_data, name=find_name_from_id(user_id))
+        # Get the table data related to that Server ID
+        tables_data = get_tables_from_staff(staff_id=user_id)
+        return render_template("server.html", orders=orders_data, tables=tables_data, name=find_name_from_id(user_id))
     else:
         # Not worker or not on duty (include manager and kitchen), return to order page.
         return render_template('staff.html', name=find_name_from_id(user_id))

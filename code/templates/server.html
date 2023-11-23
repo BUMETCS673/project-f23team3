@@ -4,39 +4,76 @@
 <title> Better Menu </title>
 {% endblock %}
 {% block body %}
-<h1 class="text-center mt-5">Orders List</h1>
+    <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <span class="ml-3" id="countdown"></span>
+        <button class="btn btn-primary" id="refreshButton" onclick="location.reload()">Refresh</button>
+    </div>
+      <div class="row">
+        <div class="col">
+          <section>
+            <h1 class="text-center mt-5">Orders List</h1>
+            {% if orders %}
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Table ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Requests</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.table_id }}</td>
+                                <td>{{ order.date }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.payment }}</td>
+                                <td>{{ order.request }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+            {% else %}
+                <p>No active orders</p>
+            {% endif %}
+          </section>
+        </div>
+        <div class="col">
+          <section>
+            <h1 class="text-center mt-5">Table Status</h1>
+            {% if tables %}
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Table ID</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Capacity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for table in tables %}
+                            <tr>
+                                <td>{{ table.id }}</td>
+                                <td>{{ table.status }}</td>
+                                <td>{{ table.capacity }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+            {% else %}
+                <p>No active orders</p>
+            {% endif %}
+          </section>
+        </div>
+      </div>
+    </div>
 
-{% if orders %}
-<article class="table-responsive mt-4">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Table ID</th>
-                <th scope="col">Customer ID</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Payment</th>
-                <th scope="col">Requests</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for order in orders %}
-                <tr>
-                    <td>{{ order.order_id }}</td>
-                    <td>{{ order.table_id }}</td>
-                    <td>{{ order.customer_id }}</td>
-                    <td>{{ order.date }}</td>
-                    <td>{{ order.status }}</td>
-                    <td>${{ order.payment }}</td>
-                    <td>{{ order.requests }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</article>
-{% else %}
-    <h2 class="text-center mt-5">No order is linked to this account.</h2>
-{% endif %}
+
+<script src="../static/autoRefresh.js"></script>
 
 {% endblock %}

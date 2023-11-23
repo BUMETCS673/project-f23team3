@@ -2,14 +2,21 @@ from Models import *
 
 
 def get_orders_from_staff(staff_id):
-    # Find all dining tables served by the given staff member
-    tables_served = DiningTable.query.filter_by(server=staff_id).all()
+    # Find all orders served by the given staff member
+    tables_served = get_tables_from_staff(staff_id)
 
     table_ids = [table.id for table in tables_served]
 
     orders = Order.query.filter(Order.table_id.in_(table_ids)).all()
 
     return orders
+
+
+def get_tables_from_staff(staff_id):
+    # Find all dining tables served by the given staff member
+    tables_serving = DiningTable.query.filter_by(server=staff_id).all()
+
+    return tables_serving
 
 
 def find_name_from_id(user_id):
