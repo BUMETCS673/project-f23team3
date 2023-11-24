@@ -15,6 +15,22 @@ def logout():
     session.pop('user', None)
     return redirect('/login')
 
+@app.route("/kitchen", methods=['POST', 'GET'])
+def kitchen():
+    if request.method == 'POST':
+        return redirect("/kitchen")
+    else:
+        oids = db.session.query(Orders.id).filter_by(status="0")
+        kitchen_items = db.session.query(Requests).filter(Requests.order_id.in_(oids)).all()
+        #return jsonify({'message': kitchen_items[0].quantity})
+        return render_template("kitchen.html", kitchen_items=kitchen_items)
+
+@app.route('/kitchen/finish/<int:id>')
+def finish_order(id):
+    item = Orders.query.filter_by(id=id).first()
+    item.status = "1"
+    db.session.commit()
+    return redirect("/kitchen")
 
 @app.route("/cart", methods=['POST', 'GET'])
 def cart():
