@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect, jsonify
 from CloudOP import register_with_email, login_with_email
-from DataOP import is_staff, find_name_from_id, active_worker, get_orders_from_staff
+from DataOP import *
 from Models import *
 from app import app
 
@@ -35,7 +35,18 @@ def cart():
 @app.route("/cart/order", methods=['POST', 'GET'])
 def cart_order():
     if request.method == 'POST':
-        return jsonify({'message': 'Order placed'})
+        oid = db.session.query(func.max(Orders.id)).scalar() + 1
+        #add a order to Orders table
+        new_order = Orders(id=oid, table_id=1, status="0", payment="cash", customer_id="1")
+        db.session.add(new_order)
+        db.session.commit()
+        #add item to Requests table
+        items = Cart.query.filter_by(user_id=1)
+        for item in items:
+            new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity)
+            db.session.add(new_request)
+            db.session.commit()
+        return redirect("/order")
     else:
         return render_template("cart.html")
 
@@ -44,6 +55,24 @@ def delete(id):
     item = Cart.query.filter_by(dish_id=id, user_id=1).first()
     db.session.delete(item)
     db.session.commit()
+    return redirect("/cart")
+
+@app.route('/cart/add/<int:id>')
+def add(id):
+    item = Cart.query.filter_by(dish_id=id, user_id=1).first()
+    item.quantity += 1
+    db.session.commit()
+    return redirect("/cart")
+
+@app.route('/cart/subtract/<int:id>')
+def subtract(id):
+    item = Cart.query.filter_by(dish_id=id, user_id=1).first()
+    item.quantity -= 1
+    if item.quantity > 0:
+        db.session.commit()
+    else:
+        db.session.delete(item)
+        db.session.commit()
     return redirect("/cart")
 
 @app.route("/login", methods=["GET", "POST"])

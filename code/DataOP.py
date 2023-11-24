@@ -1,4 +1,5 @@
 from Models import *
+from sqlalchemy import func
 
 
 def get_orders_from_staff(staff_id):
@@ -62,3 +63,7 @@ def active_worker(user_id):
         # Staff not working on any table, show customer order
         return False
     return True
+
+def get_max_order_id():
+    order_id = Orders.query(func.max(Orders.id))
+    return order_id

@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title> Shopping Cart </title>
+<title xmlns:text-decoration="http://www.w3.org/1999/xhtml"> Shopping Cart </title>
 {% endblock %}
 {% block body %}
 <div class="content container">
     <h1 class="text-center mt-5">Cart</h1>
-    {% if cart_items|length < 0 %}
+    {% if cart_items|length < 1 %}
     <h4 class="text-center mt-4">Cart empty</h4>
     {% else %}
     <div class="table-responsive mt-4">
@@ -20,17 +20,10 @@
         </thead>
         <tbody>
           <!-- Your table rows go here -->
-            <tr>
-                <td>item 1</td>
-                <td>2</td>
-                <td>
-                    <a href="/delete/1">Delete</a>
-                </td>
-            </tr>
             {% for item in cart_items %}
                 <tr>
                     <td>{{ item.dish_id }}</td>
-                    <td>{{ item.quantity }}</td>
+                    <td><a href="cart/subtract/{{item.dish_id}}" style="text-decoration: none"> - </a>{{ item.quantity }}<a href="cart/add/{{item.dish_id}}" style="text-decoration: none"> + </a></td>
                     <td>
                         <a href="cart/delete/{{item.dish_id}}">Delete</a>
                         <br>
