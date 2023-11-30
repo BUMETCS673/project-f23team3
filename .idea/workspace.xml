@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="987d570c-475a-4b98-a8b2-d1678d737c70" name="Changes" comment="Complete registration function.">
+    <list default="true" id="987d570c-475a-4b98-a8b2-d1678d737c70" name="Changes" comment="Dependency update to avoid use requests lower than 2.31.0 due to CVE.">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6dcf6469-3e9e-4409-a4a3-be25d3b55d29.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6dcf6469-3e9e-4409-a4a3-be25d3b55d29.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_13_2023_12_55_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_13_2023_12_55_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/CloudOP.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/CloudOP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/Models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/instance/main.db" beforeDir="false" afterPath="$PROJECT_DIR$/code/instance/main.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/templates/confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/confirm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/templates/menu/full_menu/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/menu/full_menu/insert.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/templates/menu/main_menu/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/menu/main_menu/insert.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/templates/staff.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/staff.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qodana.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,13 +65,6 @@
     &quot;assignee&quot;: &quot;T0ny-X&quot;
   }
 }</component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="main" />
-      </list>
-    </option>
-  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -75,7 +77,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -88,30 +90,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Customer&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/micro/PycharmProjects/project-f23team3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.qodana&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.2324159&quot;,
-    &quot;sql.rename.search.for.storage.occurrences&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Customer",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/micro/PycharmProjects/project-f23team3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "Errors",
+    "settings.editor.splitter.proportion": "0.2324159",
+    "sql.rename.search.for.storage.occurrences": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\micro\PycharmProjects\project-f23team3" />
@@ -148,7 +150,9 @@
       <workItem from="1699859451400" duration="254000" />
       <workItem from="1699859727653" duration="291000" />
       <workItem from="1700111668023" duration="5438000" />
-      <workItem from="1700161826497" duration="1805000" />
+      <workItem from="1700161826497" duration="2003000" />
+      <workItem from="1700164147137" duration="504000" />
+      <workItem from="1701365898033" duration="1415000" />
     </task>
     <task id="LOCAL-00001" summary="Conflicts resolved, Models.py structure and main.db are up-to-date as **11/13/2023**">
       <option name="closed" value="true" />
@@ -206,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700161388092</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Dependency update to avoid use requests lower than 2.31.0 due to CVE.">
+      <option name="closed" value="true" />
+      <created>1700163811722</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700163811722</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,12 +256,13 @@
     <MESSAGE value="Action fixes trial 2." />
     <MESSAGE value="Add Qodana integration. (small changes to qodana.yaml)" />
     <MESSAGE value="Complete registration function." />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete registration function." />
+    <MESSAGE value="Dependency update to avoid use requests lower than 2.31.0 due to CVE." />
+    <option name="LAST_COMMIT_MESSAGE" value="Dependency update to avoid use requests lower than 2.31.0 due to CVE." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/project_f23team3$RegiserPage.coverage" NAME="RegiserPage Coverage Results" MODIFIED="1698812202427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
     <SUITE FILE_PATH="coverage/project_f23team3$app.coverage" NAME="app Coverage Results" MODIFIED="1698812576143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
-    <SUITE FILE_PATH="coverage/project_f23team3$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1700163635931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project_f23team3$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1701367309884" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
     <SUITE FILE_PATH="coverage/project_f23team3$dishTest.coverage" NAME="dishTest Coverage Results" MODIFIED="1699856767922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
   </component>
 </project>

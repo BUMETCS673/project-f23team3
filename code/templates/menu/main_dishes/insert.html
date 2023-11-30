@@ -8,10 +8,14 @@
     <h1>Data Insertion Form</h1>
     <form action="/insert_post" method="POST" enctype="multipart/form-data">
         <label for="name">Name:</label>
-        <input type="text" name="name" required><br>
+        <label>
+            <input type="text" name="name" required>
+        </label><br>
 
         <label for="description">Description:</label>
-        <textarea name="description" required></textarea><br>
+        <label>
+            <textarea name="description" required></textarea>
+        </label><br>
 
         <label for="image">Image:</label>
         <input type="file" name="image" accept="image/*"><br>

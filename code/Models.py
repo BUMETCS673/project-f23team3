@@ -9,7 +9,7 @@ class Order(Base):
     table_id = db.Column(db.Integer, db.ForeignKey('dining_tables.id'))
     date = db.Column(db.Text)
     status = db.Column(db.Text)
-    payment = db.Column(db.Integer)
+    total = db.Column(db.Integer)
     request = db.Column(db.Text)
 
 
@@ -72,7 +72,7 @@ class Requests(Base):
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), primary_key=True)
     dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
     quantity = db.Column(db.Integer)
-    special_requests = db.Column(db.Text)
+    special = db.Column(db.Text)
 
 
 class DiningTable(Base):
