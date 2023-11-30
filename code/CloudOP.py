@@ -6,6 +6,12 @@ from Config import firebase_config as config
 # Initialize firebase
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
+storage = firebase.storage()
+
+
+def get_menu_pic(file_name):
+    url = storage.child("menu_pics/{}".format(file_name)).get_url(token=None)
+    return url
 
 
 def register_with_email(email, password):
@@ -27,3 +33,6 @@ def login_with_email(email, password):
         error = json.loads(error_json)['error']['message']
         print(error)
         raise ValueError(error) from None
+
+
+print(get_menu_pic('Hummingbird.jpg'))
