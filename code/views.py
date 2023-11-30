@@ -39,12 +39,14 @@ def cart_order():
     else:
         return render_template("cart.html")
 
+
 @app.route('/cart/delete/<int:id>')
 def delete(dish_id):
     item = Cart.query.filter_by(dish_id=dish_id, user_id=1).first()
     db.session.delete(item)
     db.session.commit()
     return redirect("/cart")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login_page():
