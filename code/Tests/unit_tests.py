@@ -3,7 +3,7 @@ from flask import Flask, url_for
 from flask_testing import TestCase
 from selenium import webdriver
 from main import app, db
-from model import main_dishes, dishes
+from Models import main_dishes, dishes
 
 
 class TestRoutes(TestCase):
