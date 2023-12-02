@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> order </title>
+{% endblock %}
+{% block body %}
+<div class="content container">
+    <h1 class="text-center mt-5">Order history</h1>
+    {% if order_items|length < 1 %}
+    <h4 class="text-center mt-4">No orders</h4>
+    {% else %}
+    {% for key, items in order_items.items() %}
+    <div class="table-responsive mt-4">
+      <h4 class="text-center mt-4">Order Number: {{key}}</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Your table rows go here -->
+            {% for item in items %}
+            <tr>
+                <td>{{ item.dish_id }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.order_id }}</td>
+                {% if item.special == "0" %}
+                <td> Preparing </td>
+                {% else %}
+                <td> Finished </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+</div>
+{% endblock %}

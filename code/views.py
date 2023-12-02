@@ -15,6 +15,20 @@ def logout():
     session.pop('user', None)
     return redirect('/login')
 
+@app.route("/order", methods=['POST', 'GET'])
+def order():
+    if request.method == 'POST':
+        return redirect("/order")
+    else:
+        order_items = db.session.query(Orders.id,Requests).filter(Requests.order_id == Orders.id).filter_by(customer_id="1").all()
+        order_dict = {}
+        for item in reversed(order_items):
+            if item[0] in order_dict:
+                order_dict[item[0]].append(item[1])
+            else:
+                order_dict[item[0]] = [item[1]]
+        return render_template("order.html", order_items=order_dict)
+
 @app.route("/kitchen", methods=['POST', 'GET'])
 def kitchen():
     if request.method == 'POST':
@@ -59,7 +73,7 @@ def cart_order():
         #add item to Requests table
         items = Cart.query.filter_by(user_id=1)
         for item in items:
-            new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity)
+            new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity, special='0')
             db.session.add(new_request)
             db.session.commit()
         return redirect("/order")
