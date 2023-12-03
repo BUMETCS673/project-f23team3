@@ -18,121 +18,121 @@
     <package id="13" parent="1" name="fts5"/>
     <package id="14" parent="1" name="rtree"/>
     <package id="15" parent="1" name="dbstat"/>
-    <routine id="16" parent="1" name="julianday">
+    <routine id="16" parent="1" name="pow">
       <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
     </routine>
-    <routine id="17" parent="1" name="json_array">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="18" parent="1" name="json_remove">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="19" parent="1" name="json_object">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="20" parent="1" name="json_insert">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="21" parent="1" name="printf">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="22" parent="1" name="json_replace">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="23" parent="1" name="json_extract">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="24" parent="1" name="time">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="25" parent="1" name="strftime">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="26" parent="1" name="char">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="27" parent="1" name="unixepoch">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="28" parent="1" name="date">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="29" parent="1" name="coalesce">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="30" parent="1" name="format">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="31" parent="1" name="datetime">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="32" parent="1" name="lag">
+    <routine id="17" parent="1" name="group_concat">
       <FunctionType>window</FunctionType>
     </routine>
-    <routine id="33" parent="1" name="max">
+    <routine id="18" parent="1" name="json_type">
       <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
     </routine>
-    <routine id="34" parent="1" name="min">
-      <Deterministic>1</Deterministic>
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="35" parent="1" name="lead">
+    <routine id="19" parent="1" name="ntile">
       <FunctionType>window</FunctionType>
     </routine>
-    <routine id="36" parent="1" name="json_set">
+    <routine id="20" parent="1" name="nullif">
+      <Deterministic>1</Deterministic>
+    </routine>
+    <routine id="21" parent="1" name="julianday">
       <Deterministic>1</Deterministic>
       <Variadic>1</Variadic>
     </routine>
-    <routine id="37" parent="1" name="regexp">
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="38" parent="1" name="snippet">
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="39" parent="1" name="matchinfo"/>
-    <routine id="40" parent="1" name="rtreecheck">
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="41" parent="1" name="highlight">
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="42" parent="1" name="bm25">
-      <Variadic>1</Variadic>
-    </routine>
-    <routine id="43" parent="1" name="charindex"/>
-    <routine id="44" parent="1" name="fts3_tokenizer"/>
-    <routine id="45" parent="1" name="pow">
+    <routine id="22" parent="1" name="json_array">
       <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
     </routine>
-    <routine id="46" parent="1" name="group_concat">
+    <routine id="23" parent="1" name="json_remove">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="24" parent="1" name="json_object">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="25" parent="1" name="json_insert">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="26" parent="1" name="printf">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="27" parent="1" name="json_replace">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="28" parent="1" name="json_extract">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="29" parent="1" name="time">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="30" parent="1" name="strftime">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="31" parent="1" name="char">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="32" parent="1" name="unixepoch">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="33" parent="1" name="date">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="34" parent="1" name="coalesce">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="35" parent="1" name="format">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="36" parent="1" name="datetime">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="37" parent="1" name="lag">
       <FunctionType>window</FunctionType>
     </routine>
-    <routine id="47" parent="1" name="json_type">
+    <routine id="38" parent="1" name="max">
       <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
     </routine>
-    <routine id="48" parent="1" name="ntile">
+    <routine id="39" parent="1" name="min">
+      <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="40" parent="1" name="lead">
       <FunctionType>window</FunctionType>
     </routine>
-    <routine id="49" parent="1" name="nullif">
+    <routine id="41" parent="1" name="json_set">
       <Deterministic>1</Deterministic>
+      <Variadic>1</Variadic>
     </routine>
+    <routine id="42" parent="1" name="regexp">
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="43" parent="1" name="snippet">
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="44" parent="1" name="matchinfo"/>
+    <routine id="45" parent="1" name="rtreecheck">
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="46" parent="1" name="highlight">
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="47" parent="1" name="bm25">
+      <Variadic>1</Variadic>
+    </routine>
+    <routine id="48" parent="1" name="charindex"/>
+    <routine id="49" parent="1" name="fts3_tokenizer"/>
     <routine id="50" parent="1" name="sqlite_compileoption_get"/>
     <routine id="51" parent="1" name="json_valid">
       <Deterministic>1</Deterministic>
@@ -446,167 +446,167 @@
     <routine id="176" parent="1" name="fts5"/>
     <schema id="177" parent="1" name="main">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-11-30.12:59:07.529</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-11-30.17:59:07</LocalIntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-12-03.17:49:48.428</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-12-03.22:49:48</LocalIntrospectionTimestamp>
     </schema>
     <argument id="178" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="179" parent="17">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="180" parent="18">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="181" parent="19">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="182" parent="20">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="183" parent="21">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="184" parent="22">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="185" parent="23">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="186" parent="24">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="187" parent="25">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="188" parent="26">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="189" parent="27">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="190" parent="28">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="191" parent="29">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="192" parent="30">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="193" parent="31">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="194" parent="32">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="195" parent="32">
+    <argument id="179" parent="16">
       <Position>1</Position>
     </argument>
-    <argument id="196" parent="32">
+    <argument id="180" parent="16">
       <Position>2</Position>
     </argument>
-    <argument id="197" parent="32">
+    <argument id="181" parent="17">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="182" parent="17">
+      <Position>1</Position>
+    </argument>
+    <argument id="183" parent="17">
+      <Position>2</Position>
+    </argument>
+    <argument id="184" parent="18">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="185" parent="18">
+      <Position>1</Position>
+    </argument>
+    <argument id="186" parent="18">
+      <Position>2</Position>
+    </argument>
+    <argument id="187" parent="19">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="188" parent="19">
+      <Position>1</Position>
+    </argument>
+    <argument id="189" parent="20">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="190" parent="20">
+      <Position>1</Position>
+    </argument>
+    <argument id="191" parent="20">
+      <Position>2</Position>
+    </argument>
+    <argument id="192" parent="21">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="193" parent="22">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="194" parent="23">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="195" parent="24">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="196" parent="25">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="197" parent="26">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="198" parent="27">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="199" parent="28">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="200" parent="29">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="201" parent="30">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="202" parent="31">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="203" parent="32">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="204" parent="33">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="205" parent="34">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="206" parent="35">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="207" parent="36">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="208" parent="37">
+      <ArgumentDirection>R</ArgumentDirection>
+    </argument>
+    <argument id="209" parent="37">
+      <Position>1</Position>
+    </argument>
+    <argument id="210" parent="37">
+      <Position>2</Position>
+    </argument>
+    <argument id="211" parent="37">
       <Position>3</Position>
     </argument>
-    <argument id="198" parent="33">
+    <argument id="212" parent="38">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="199" parent="34">
+    <argument id="213" parent="39">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="200" parent="35">
+    <argument id="214" parent="40">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="201" parent="35">
+    <argument id="215" parent="40">
       <Position>1</Position>
     </argument>
-    <argument id="202" parent="35">
+    <argument id="216" parent="40">
       <Position>2</Position>
     </argument>
-    <argument id="203" parent="35">
+    <argument id="217" parent="40">
       <Position>3</Position>
     </argument>
-    <argument id="204" parent="36">
+    <argument id="218" parent="41">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="205" parent="37">
+    <argument id="219" parent="42">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="206" parent="38">
+    <argument id="220" parent="43">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="207" parent="39">
+    <argument id="221" parent="44">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="208" parent="39">
+    <argument id="222" parent="44">
       <Position>1</Position>
     </argument>
-    <argument id="209" parent="39">
+    <argument id="223" parent="44">
       <Position>2</Position>
     </argument>
-    <argument id="210" parent="40">
+    <argument id="224" parent="45">
       <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="211" parent="41">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="212" parent="42">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="213" parent="43">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="214" parent="43">
-      <Position>1</Position>
-    </argument>
-    <argument id="215" parent="43">
-      <Position>2</Position>
-    </argument>
-    <argument id="216" parent="43">
-      <Position>3</Position>
-    </argument>
-    <argument id="217" parent="44">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="218" parent="44">
-      <Position>1</Position>
-    </argument>
-    <argument id="219" parent="44">
-      <Position>2</Position>
-    </argument>
-    <argument id="220" parent="45">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="221" parent="45">
-      <Position>1</Position>
-    </argument>
-    <argument id="222" parent="45">
-      <Position>2</Position>
-    </argument>
-    <argument id="223" parent="46">
-      <ArgumentDirection>R</ArgumentDirection>
-    </argument>
-    <argument id="224" parent="46">
-      <Position>1</Position>
     </argument>
     <argument id="225" parent="46">
-      <Position>2</Position>
+      <ArgumentDirection>R</ArgumentDirection>
     </argument>
     <argument id="226" parent="47">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="227" parent="47">
-      <Position>1</Position>
-    </argument>
-    <argument id="228" parent="47">
-      <Position>2</Position>
-    </argument>
-    <argument id="229" parent="48">
+    <argument id="227" parent="48">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
-    <argument id="230" parent="48">
+    <argument id="228" parent="48">
       <Position>1</Position>
+    </argument>
+    <argument id="229" parent="48">
+      <Position>2</Position>
+    </argument>
+    <argument id="230" parent="48">
+      <Position>3</Position>
     </argument>
     <argument id="231" parent="49">
       <ArgumentDirection>R</ArgumentDirection>
