@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet"> /* 水墨字体 */
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Restaurant</title>
@@ -10,14 +12,14 @@
         body {
             background: url('../static/images/chinesedragon.jpg') no-repeat center center; /* 中国龙背景图 */
             background-size: cover;
-            font-family: 'Noto Serif SC', serif; /* 适合中文的字体 */
+            font-family: 'ZCOOL XiaoWei', serif; /* 适合中文的字体 */
         }
         .welcome-message {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: gold;
+            color: #d5b60e;
             text-align: center;
             opacity: 0;
             animation: fadeIn 2s ease-in-out forwards; /* 渐变动画 */
@@ -38,7 +40,7 @@
         }
         .btn-chinese-style {
             background-color: #C0392B; /* 深红色 */
-            color: white;
+            color: #d7a01f;
             border: none;
             border-radius: 5px;
             padding: 10px 20px;
@@ -46,6 +48,9 @@
         }
         .btn-chinese-style:hover {
             background-color: #A93226; /* 深红色变种 */
+        }
+        .water-ink-style {
+            font-family: 'Ma Shan Zheng', cursive;
         }
     </style>
 </head>
@@ -79,8 +84,11 @@
 
 <!-- Chinese Food Gallery -->
 <div class="chinese-food-gallery">
-    <img src="{{ url_for('static', filename='images/food1.jpg') }}" alt="Chinese Dish 1">
-    <img src="{{ url_for('static', filename='images/food2.jpg') }}" alt="Chinese Dish 2">
+    <img src="../static/images/food1.jpg" alt="Chinese Dish 1">
+    <img src="../static/images/food2.jpg" alt="Chinese Dish 2">
+    max-width: 100%;  /* 限制图片最大宽度，防止超出容器宽度 */
+    height: auto;     /* 高度为auto，保持图片的原始宽高比 */
+    margin: 10px;     /* 外边距，确保图片之间有空间 */
     <!-- 更多中国菜图片 -->
 </div>
 
@@ -92,9 +100,14 @@
     <a href="/cart" class="btn btn-chinese-style">购物车</a>
 </div>
 
+<!-- 字体 -->
+<div class="water-ink-style">
+    欢迎光临bugkiller餐厅
+</div>
+
 <script type="text/javascript">
     window.onload = function() {
-        var isLoggedIn = false; // You need to set this based on the backend authentication status
+        var isLoggedIn = false; // set this based on the backend authentication status
         if (isLoggedIn) {
             document.getElementById('cart-link').style.display = 'block';
         }
