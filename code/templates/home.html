@@ -27,16 +27,17 @@
         @keyframes fadeIn {
             to { opacity: 1; }
         }
-        .chinese-food-gallery {
-            position: absolute;
-            top: 60%;
-            left: 5%;
-            /* 可添加滑动画廊样式 */
+        .chinese-food-gallery img {
+            max-width: 100px; /* 调整为所需的图片宽度 */
+            height: auto; /* 高度自动，保持宽高比 */
+            margin: 10px; /* 外边距，确保图片之间有空间 */
         }
         .btn-container {
             position: absolute;
-            top: 50%;
+            bottom: 20px;
             right: 10px;
+            display: flex;
+            flex-direction: column; /* 按钮垂直排列 */
         }
         .btn-chinese-style {
             background-color: #C0392B; /* 深红色 */
