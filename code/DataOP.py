@@ -59,13 +59,9 @@ def is_staff(user_id):
 
 
 def active_worker(user_id):
-    # Check if ID is Staff or not, return is first row.
-    staff = Staff.query.filter_by(id=user_id).first()
+    # Check if ID is active Staff or not, return is first row.
+    staff = Staff.query.filter_by(id=user_id, status='Active').first()
     if staff is None:
-        # ID not Staff, show customer order
-        return False
-    work = DiningTable.query.filter_by(server=user_id)
-    if work is None:
-        # Staff not working on any table, show customer order
+        # ID not active Staff, show customer order
         return False
     return True

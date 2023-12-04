@@ -7,7 +7,17 @@ from app import app
 
 @app.route('/')
 def index():
-    return render_template('./index.html')
+    # Login Check
+    try:
+        user_id = session['user']['localId']
+    except KeyError:
+        # User Not Logged in, visitor
+        return render_template('home.html', layout='./base/visitor.html')
+    # Staff Check
+    if active_worker(user_id):
+        # Active staff
+        return render_template('./base/staff.html')
+    return render_template('./base/customer.html')
 
 
 @app.route('/logout')
@@ -28,7 +38,7 @@ def cart():
         # return jsonify({'message': 'Order placed and paid', 'order_id': new_order.dish_id})
     else:
         cart_items = Cart.query.filter_by(table_id=1).all()
-        return render_template("cart.html", cart_items=cart_items)
+        return render_template("cart.html", cart_items=cart_items, layout='./base/customer.html')
         # return render_template("cart.html")
 
 
@@ -37,7 +47,7 @@ def cart_order():
     if request.method == 'POST':
         return jsonify({'message': 'Order placed'})
     else:
-        return render_template("cart.html")
+        return render_template("cart.html", layout='./base/customer.html')
 
 
 @app.route('/cart/delete/<int:id>')
@@ -59,22 +69,20 @@ def login_page():
             user = login_with_email(email, password)
             session['user'] = user
             if is_staff(user['localId']):
-                return render_template('staff.html', name=find_name_from_id(user['localId']))
-            return render_template("login.html", success=True)
+                return render_template('base/staff.html', layout='./base/staff.html')
+            return render_template("login.html", success=True, layout='./base/visitor.html')
         except ValueError as err:
-            return render_template("login.html", success=False, error=err)
+            return render_template("login.html", success=False, error=err, layout='./base/visitor.html')
     else:
         # Handle GET request to render the login page
         try:
             user_id = session['user']['localId']
         except KeyError:
             # User Not Logged in
-            return render_template("./login.html")
+            return render_template("./login.html", layout='./base/visitor.html')
         name = find_name_from_id(user_id)
         err = "You are Logged in as " + name + " already."
-        if is_staff(user_id):
-            return render_template('./staff.html', name=find_name_from_id(user_id))
-        return render_template("./login.html", success=False, error=err)
+        return redirect('/')
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -91,59 +99,66 @@ def sign_up_page():
             new_user = Customer(id=user['localId'], name=preferred_name, email=email)
             db.session.add(new_user)
             db.session.commit()
-            return render_template("signup.html", success=True)
+            return render_template("signup.html", success=True, layout='./base/visitor.html')
         except ValueError as err:
-            return render_template("signup.html", success=False, error=err)
+            return render_template("signup.html", success=False, error=err, layout='./base/visitor.html')
     else:
         # Handle initial GET request to render the registration page
-        return render_template("./signup.html")
+        return render_template("./signup.html", layout='./base/visitor.html')
 
 
 @app.route("/server", methods=['POST', 'GET'])
 def server_landing():
+    # Check log in status
     try:
         user_id = session['user']['localId']
     except KeyError:
         # User Not Logged in
         return redirect('/login')
+
     if active_worker(user_id):
         # Get the Newest list of all orders related to that Server ID
         orders_data = get_orders_from_staff(user_id)
         # Get the table data related to that Server ID
         tables_data = get_tables_from_staff(staff_id=user_id)
-        return render_template("server.html", orders=orders_data, tables=tables_data, name=find_name_from_id(user_id))
+        return render_template("server.html", orders=orders_data, tables=tables_data, layout='./base/staff.html')
     else:
         # Not worker or not on duty (include manager and kitchen), return to order page.
-        return render_template('staff.html', name=find_name_from_id(user_id))
+        return redirect('/menu')
 
 
 @app.route('/completed-orders')
 def completed_orders():
     c_orders = Order.query.filter_by(status='completed').all()
-    return render_template('completed_orders.html', orders=c_orders)
+    return render_template('completed_orders.html', orders=c_orders, layout='./base/customer.html')
 # list all the completed orders
 
 
 @app.route('/confirm')
 def order_page():
-    return render_template('./confirm.html')
+    return render_template('./confirm.html', layout='./base/customer.html')
 
 
 @app.route('/menu')
 def customer_index():
     main_dishes = DishType.query.all()
-    return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes)
+    try:
+        user_id = session['user']['localId']
+        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes, layout='./base/customer.html')
+    except KeyError:
+        # User Not Logged in
+        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes, layout='./base/visitor.html')
 
 
 @app.route("/general_admin_index", methods=["GET"])  # View all menu info for the admin user
 def admin_index():
     main_dish_items = DishType.query.all()
-    return render_template('./menu/main_menu/admin_view.html', main_menu_items=main_dish_items)
+    return render_template('./menu/main_menu/admin_view.html', main_menu_items=main_dish_items, layout='./base/staff.html')
 
 
 @app.route('/general_insert_form')  # main dishes insert form
 def general_insert_index():
-    return render_template('./menu/main_menu/insert.html')
+    return render_template('./menu/main_menu/insert.html', layout='./base/staff.html')
 
 
 @app.route('/insert_general_dishes', methods=['POST'])
@@ -151,8 +166,8 @@ def general_insert_post():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
-        image = request.files['image']
-        main_dish = DishType(name=name, description=description)
+        pic_url = request.form['image_url']
+        main_dish = DishType(name=name, description=description, pic_url=pic_url)
         db.session.add(main_dish)
         db.session.commit()
         return redirect(url_for('app.general_insert_index'))
@@ -161,7 +176,7 @@ def general_insert_post():
 @app.route('/dishes_insert_form')  # dishes menu insert form
 def dishes_insert_index():
     main_menu_data = db.session.query(Dish.id, Dish.name).all()
-    return render_template('menu/full_menu/insert.html', main_menus=main_menu_data)
+    return render_template('menu/full_menu/insert.html', main_menus=main_menu_data, layout='./base/staff.html')
 
 
 @app.route('/dishes_insert_post', methods=['POST'])  # dishes menu insert action method for POST
@@ -183,4 +198,9 @@ def dishes_insert_post():
 @app.route('/dishes_customer_view/<int:general_dish_id>')
 def dishes_customer_index(general_dish_id):
     dishes_items = Dish.query.filter_by(general_dish_id=general_dish_id).all()
-    return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items)
+    try:
+        user_id = session['user']['localId']
+    except KeyError:
+        # User Not Logged in
+        return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items, layout='./base/visitor.html')
+    return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items, layout='./base/customer.html')

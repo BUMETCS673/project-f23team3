@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends layout %}
 
 {% block head %}
 <title> Data Insertion Form </title>
@@ -17,8 +17,10 @@
             <textarea name="description" required></textarea>
         </label><br>
 
-        <label for="image">Image:</label>
-        <input type="file" name="image" accept="image/*"><br>
+        <label for="image_url">Image URL:</label>
+        <label>
+            <textarea name="image_url" required></textarea>
+        </label><br>
 
         <input type="submit" value="Submit">
     </form>

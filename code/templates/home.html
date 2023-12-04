@@ -1,17 +1,14 @@
-{% extends 'base.html' %}
+{% extends layout %}
 
-{% block head %}
-<title> Online Restaurant </title>
-{% endblock %}
 {% block body %}
-<div class="container mt-5">
+    <div class="container mt-5">
     <div class="row justify-content-center">
         <!-- Card for Login -->
         <div class="col-md-3 mb-4">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">Login</h5>
-                    <p class="card-text">Access your account.</p>
+                    <p class="card-text">Access your account or make orders.</p>
                     <a href="/login" class="btn btn-primary">Go to Login</a>
                 </div>
             </div>
@@ -33,16 +30,6 @@
                     <h5 class="card-title">Menu</h5>
                     <p class="card-text">Browse our dishes.</p>
                     <a href="/menu" class="btn btn-primary">View Menu</a>
-                </div>
-            </div>
-        </div>
-        <!-- Card for Cart -->
-        <div class="col-md-3 mb-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Cart</h5>
-                    <p class="card-text">Review your orders.</p>
-                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
                 </div>
             </div>
         </div>
