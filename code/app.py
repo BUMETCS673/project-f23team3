@@ -20,11 +20,6 @@ app.register_blueprint(cart_layout)
 app.register_blueprint(confirm_layout)
 app.register_blueprint(main_menu)
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 # isLoggedIn变量，前端脚本会使用这个变量来显示或隐藏购物车链接
 @app.route('/')
 def home_page():
