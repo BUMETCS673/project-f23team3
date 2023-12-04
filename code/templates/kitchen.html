@@ -1,0 +1,39 @@
+{% extends './base/staff.html' %}
+
+{% block head %}
+<title> Kitchen </title>
+{% endblock %}
+{% block body %}
+<div class="content container">
+    <h1 class="text-center mt-5">Kitchen</h1>
+    {% if kitchen_items|length < 1 %}
+    <h4 class="text-center mt-4">No new orders</h4>
+    {% else %}
+    <div class="table-responsive mt-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Your table rows go here -->
+            {% for item in kitchen_items %}
+                <tr>
+                    <td>{{ item.dish_id }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.order_id }}</td>
+                    <td>
+                        <a href="kitchen/finish/{{item.order_id}}">Finish this order</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

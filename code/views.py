@@ -5,6 +5,23 @@ from Models import *
 from app import app
 
 
+def login_check(must_staff=False):
+    # Login Check
+    try:
+        userID = session['user']['localId']
+    except KeyError:
+        return False
+    if must_staff:
+        if is_staff(userID):
+            return userID
+        else:
+            return False
+    else:
+        return userID
+
+# User Not Logged in, visitor
+
+
 @app.route('/')
 def index():
     # Login Check
@@ -16,18 +33,69 @@ def index():
     # Staff Check
     if active_worker(user_id):
         # Active staff
-        return render_template('./base/staff.html')
-    return render_template('./base/customer.html')
+        return redirect('/server')
+    # User Logged in, normal customer
+    return redirect('/menu')
 
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    try:
+        session.pop('user', None)
+    except KeyError:
+        pass
     return redirect('/login')
+
+
+@app.route("/order", methods=['POST', 'GET'])
+def order():
+    user_id = login_check()
+    if not user_id:
+        return redirect('/login')
+    if request.method == 'POST':
+        return redirect("/order")
+    else:
+        order_items = db.session.query(Order.id, Requests).filter(Requests.order_id == Order.id).filter_by(
+            customer_id=user_id).all()
+        order_dict = {}
+        for item in reversed(order_items):
+            if item[0] in order_dict:
+                order_dict[item[0]].append(item[1])
+            else:
+                order_dict[item[0]] = [item[1]]
+        return render_template("order.html", order_items=order_dict)
+
+
+@app.route("/kitchen", methods=['POST', 'GET'])
+def kitchen():
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
+    if request.method == 'POST':
+        return redirect("/kitchen")
+    else:
+        oids = db.session.query(Order.id).filter_by(status="0")
+        kitchen_items = db.session.query(Requests).filter(Requests.order_id.in_(oids)).all()
+        # return jsonify({'message': kitchen_items[0].quantity})
+        return render_template("kitchen.html", kitchen_items=kitchen_items)
+
+
+@app.route('/kitchen/finish/<int:id>')
+def finish_order(id):
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
+    item = Order.query.filter_by(id=id).first()
+    item.status = "1"
+    db.session.commit()
+    return redirect("/kitchen")
 
 
 @app.route("/cart", methods=['POST', 'GET'])
 def cart():
+    user_id = login_check()
+    if not user_id:
+        return redirect('/login')
     if request.method == 'POST':
         dish_name = request.form.get('dish_name')
         quantity = request.form.get('quantity')
@@ -38,23 +106,66 @@ def cart():
         # return jsonify({'message': 'Order placed and paid', 'order_id': new_order.dish_id})
     else:
         cart_items = Cart.query.filter_by(table_id=1).all()
-        return render_template("cart.html", cart_items=cart_items, layout='./base/customer.html')
+        return render_template("cart.html", cart_items=cart_items)
         # return render_template("cart.html")
 
 
 @app.route("/cart/order", methods=['POST', 'GET'])
 def cart_order():
+    user_id = login_check()
+    if not user_id:
+        return redirect('/login')
     if request.method == 'POST':
-        return jsonify({'message': 'Order placed'})
+        # add an order to Orders table, ID auto increment
+        new_order = Order(table_id=1, status="0", payment="cash", customer_id=user_id)
+        db.session.add(new_order)
+        db.session.commit()
+        # add item to Requests table
+        oid = new_order.id
+        items = Cart.query.filter_by(user_id=user_id)
+        for item in items:
+            new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity, special='0')
+            db.session.add(new_request)
+            db.session.commit()
+        return redirect("/order")
     else:
-        return render_template("cart.html", layout='./base/customer.html')
+        return render_template("cart.html")
 
 
 @app.route('/cart/delete/<int:id>')
-def delete(dish_id):
-    item = Cart.query.filter_by(dish_id=dish_id, user_id=1).first()
+def delete(id):
+    user_id = login_check()
+    if not user_id:
+        return redirect('/login')
+    item = Cart.query.filter_by(dish_id=id, table_id=1).first()
     db.session.delete(item)
     db.session.commit()
+    return redirect("/cart")
+
+
+@app.route('/cart/add/<int:id>')
+def add(id):
+    user_id = login_check()
+    if not user_id:
+        return redirect('/login')
+    item = Cart.query.filter_by(dish_id=id, table_id=1).first()
+    item.quantity += 1
+    db.session.commit()
+    return redirect("/cart")
+
+
+@app.route('/cart/subtract/<int:id>')
+def subtract(id):
+    user_id = login_check()
+    if not user_id:
+        return redirect('/login')
+    item = Cart.query.filter_by(dish_id=id, table_id=1).first()
+    item.quantity -= 1
+    if item.quantity > 0:
+        db.session.commit()
+    else:
+        db.session.delete(item)
+        db.session.commit()
     return redirect("/cart")
 
 
@@ -80,8 +191,6 @@ def login_page():
         except KeyError:
             # User Not Logged in
             return render_template("./login.html", layout='./base/visitor.html')
-        name = find_name_from_id(user_id)
-        err = "You are Logged in as " + name + " already."
         return redirect('/')
 
 
@@ -109,11 +218,8 @@ def sign_up_page():
 
 @app.route("/server", methods=['POST', 'GET'])
 def server_landing():
-    # Check log in status
-    try:
-        user_id = session['user']['localId']
-    except KeyError:
-        # User Not Logged in
+    user_id = login_check(True)
+    if not user_id:
         return redirect('/login')
 
     if active_worker(user_id):
@@ -129,14 +235,11 @@ def server_landing():
 
 @app.route('/completed-orders')
 def completed_orders():
+    user_id = login_check()
+    if not user_id:
+        return redirect('/login')
     c_orders = Order.query.filter_by(status='completed').all()
     return render_template('completed_orders.html', orders=c_orders, layout='./base/customer.html')
-# list all the completed orders
-
-
-@app.route('/confirm')
-def order_page():
-    return render_template('./confirm.html', layout='./base/customer.html')
 
 
 @app.route('/menu')
@@ -144,25 +247,36 @@ def customer_index():
     main_dishes = DishType.query.all()
     try:
         user_id = session['user']['localId']
-        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes, layout='./base/customer.html')
+        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes,
+                               layout='./base/customer.html')
     except KeyError:
         # User Not Logged in
-        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes, layout='./base/visitor.html')
+        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes,
+                               layout='./base/visitor.html')
 
 
 @app.route("/general_admin_index", methods=["GET"])  # View all menu info for the admin user
 def admin_index():
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
     main_dish_items = DishType.query.all()
-    return render_template('./menu/main_menu/admin_view.html', main_menu_items=main_dish_items, layout='./base/staff.html')
+    return render_template('./menu/main_menu/admin_view.html', main_menu_items=main_dish_items)
 
 
 @app.route('/general_insert_form')  # main dishes insert form
 def general_insert_index():
-    return render_template('./menu/main_menu/insert.html', layout='./base/staff.html')
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
+    return render_template('./menu/main_menu/insert.html')
 
 
 @app.route('/insert_general_dishes', methods=['POST'])
 def general_insert_post():
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
@@ -175,12 +289,18 @@ def general_insert_post():
 
 @app.route('/dishes_insert_form')  # dishes menu insert form
 def dishes_insert_index():
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
     main_menu_data = db.session.query(Dish.id, Dish.name).all()
-    return render_template('menu/full_menu/insert.html', main_menus=main_menu_data, layout='./base/staff.html')
+    return render_template('menu/full_menu/insert.html', main_menus=main_menu_data)
 
 
 @app.route('/dishes_insert_post', methods=['POST'])  # dishes menu insert action method for POST
 def dishes_insert_post():
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
     if request.method == 'POST':
         data = {
 
@@ -200,7 +320,9 @@ def dishes_customer_index(general_dish_id):
     dishes_items = Dish.query.filter_by(general_dish_id=general_dish_id).all()
     try:
         user_id = session['user']['localId']
+        return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items,
+                               layout='./base/customer.html')
     except KeyError:
         # User Not Logged in
-        return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items, layout='./base/visitor.html')
-    return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items, layout='./base/customer.html')
+        return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items,
+                               layout='./base/visitor.html')

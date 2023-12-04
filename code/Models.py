@@ -6,7 +6,7 @@ Base = db.Model
 class Order(Base):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
-    table_id = db.Column(db.Integer, db.ForeignKey('dining_tables.id'))
+    customer_id = db.Column(db.Text, db.ForeignKey('customers.id'))
     date = db.Column(db.Text)
     status = db.Column(db.Text)
     total = db.Column(db.Integer)
