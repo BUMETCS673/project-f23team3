@@ -117,12 +117,13 @@ def cart_order():
         return redirect('/login')
     if request.method == 'POST':
         # add an order to Orders table, ID auto increment
-        new_order = Order(table_id=1, status="0", payment="cash", customer_id=user_id)
+        new_order = Order(status="0", customer_id=user_id, total=0)
         db.session.add(new_order)
         db.session.commit()
         # add item to Requests table
         oid = new_order.id
-        items = Cart.query.filter_by(user_id=user_id)
+        tid = Party.query.filter_by(customer_id=user_id).first().table_id
+        items = Cart.query.filter_by(table_id=tid)
         for item in items:
             new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity, special='0')
             db.session.add(new_request)
@@ -224,7 +225,7 @@ def server_landing():
 
     if active_worker(user_id):
         # Get the Newest list of all orders related to that Server ID
-        orders_data = get_orders_from_staff(user_id)
+        orders_data = Order.query.filter_by(server_id=user_id)
         # Get the table data related to that Server ID
         tables_data = get_tables_from_staff(staff_id=user_id)
         return render_template("server.html", orders=orders_data, tables=tables_data, layout='./base/staff.html')
