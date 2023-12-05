@@ -5,6 +5,12 @@
 {% endblock %}
 {% block body %}
 <div class="content container">
+    <!-- Auto Refresher -->
+    <div class="d-flex justify-content-between align-items-center">
+        <span class="ml-3" id="countdown"></span>
+        <button class="btn btn-primary" id="refreshButton" onclick="location.reload()">Refresh</button>
+    </div>
+
     <h1 class="text-center mt-5">Kitchen</h1>
     {% if kitchen_items|length < 1 %}
     <h4 class="text-center mt-4">No new orders</h4>
@@ -20,7 +26,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Your table rows go here -->
             {% for item in kitchen_items %}
                 <tr>
                     <td>{{ item.dish_id }}</td>
@@ -36,4 +41,5 @@
     </div>
     {% endif %}
 </div>
+    <script src="../static/autoRefresh.js"></script>
 {% endblock %}
