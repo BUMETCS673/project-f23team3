@@ -10,12 +10,12 @@ class Order(Base):
     date = db.Column(db.Text)
     status = db.Column(db.Text)
     total = db.Column(db.Integer)
-    request = db.Column(db.Text)
+    server_id = db.Column(db.Text, db.ForeignKey('staffs.id'))
 
 
 class Party(Base):
     __tablename__ = 'parties'
-    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), primary_key=True)
+    table_id = db.Column(db.Integer, db.ForeignKey('dining_tables.id'), primary_key=True)
     customer_id = db.Column(db.Text, db.ForeignKey('customers.id'), primary_key=True)
 
 
@@ -27,25 +27,11 @@ class Cart(Base):
     special = db.Column(db.Text)
 
 
-class Reviews(Base):
-    __tablename__ = 'reviews'
-    id = db.Column(db.Integer, primary_key=True)
-    dish_id = db.Column(db.Integer, db.ForeignKey('Order.id'))
-    customer_id = db.Column(db.Text, db.ForeignKey('Customer.id'))
-    feedback = db.Column(db.Text)
-
-
 class Customer(Base):
     __tablename__ = 'customers'
     id = db.Column(db.Text, primary_key=True)
     name = db.Column(db.Text)
     email = db.Column(db.Text)
-
-
-class Composition(Base):
-    __tablename__ = 'compositions'
-    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
-    ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredients.id'), primary_key=True)
 
 
 class Dish(Base):
@@ -78,23 +64,14 @@ class Requests(Base):
 class DiningTable(Base):
     __tablename__ = 'dining_tables'
     id = db.Column(db.Integer, primary_key=True)
-    server = db.Column(db.Integer, db.ForeignKey('staff.id'))
+    server = db.Column(db.Integer, db.ForeignKey('staffs.id'))
     status = db.Column(db.Text)
-    capacity = db.Column(db.Integer)
-
-
-class Ingredient(Base):
-    __tablename__ = 'ingredients'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text)
-    cost = db.Column(db.REAL)
-    expiration_date = db.Column(db.Text)
-    quantity_left = db.Column(db.REAL)
+    passphrase = db.Column(db.Text)
 
 
 class Staff(Base):
     __tablename__ = 'staffs'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Text, primary_key=True)
     first_name = db.Column(db.Text)
     last_name = db.Column(db.Text)
     email = db.Column(db.Text)
