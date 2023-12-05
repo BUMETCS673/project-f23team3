@@ -35,14 +35,14 @@ def kitchen():
         return redirect("/kitchen")
     else:
         oids = db.session.query(Orders.id).filter_by(status="0")
-        kitchen_items = db.session.query(Requests).filter(Requests.order_id.in_(oids)).all()
+        kitchen_items = db.session.query(Requests).filter_by(special="0").all()
         #return jsonify({'message': kitchen_items[0].quantity})
         return render_template("kitchen.html", kitchen_items=kitchen_items)
 
-@app.route('/kitchen/finish/<int:id>')
-def finish_order(id):
-    item = Orders.query.filter_by(id=id).first()
-    item.status = "1"
+@app.route('/kitchen/finish/<int:oid>/<int:did>')
+def finish_order(oid,did):
+    item = Requests.query.filter_by(order_id=oid, dish_id=did).first()
+    item.special = "1"
     db.session.commit()
     return redirect("/kitchen")
 
