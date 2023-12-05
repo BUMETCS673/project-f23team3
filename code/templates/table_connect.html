@@ -1,0 +1,37 @@
+{% extends './base/customer.html' %}
+
+{% block head %}
+<title> Connect to a Table </title>
+{% endblock %}
+{% block body %}
+
+<div class="position-relative" style="margin-left: 45px;">
+    <h2>Connect to a Table, ask for passphrase</h2>
+      <form action="{{ url_for('table_connect') }}" method="post">
+      <div class="row mb-3">
+        <label for="inputTable" class="col-form-label">Table Number</label>
+        <div class="col-sm-3">
+          <input type="number" min="1" class="form-control" id="inputTable" name="inputTable">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="inputPassphrase" class="col-form-label">Passphrase</label>
+        <div class="col-sm-3">
+          <input type="password" class="form-control" id="inputPassphrase" name="inputPassphrase">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Connect</button>
+    </form>
+</div>
+
+
+<div class="position-relative" style="margin-left: 45px;">
+  {% if success %}
+        <p style="color: green;">Success.</p>
+  {% endif %}
+  {% if error %}
+        <p style="color: red;">{{ error }}</p>
+  {% endif %}
+</div>
+
+{% endblock %}

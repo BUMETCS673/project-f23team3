@@ -91,16 +91,43 @@ def finish_order(id):
     return redirect("/kitchen")
 
 
+@app.route("/table-connect", methods=['GET', 'POST'])
+def table_connect():
+    if request.method == "POST":
+        user_id = login_check()
+        if not user_id:
+            return redirect('/login')
+        # Handle form submission
+        table_id = request.form.get("inputTable")
+        passphrase = request.form.get("inputPassphrase")
+        if join_party(user_id, table_id, passphrase):
+            return redirect('/cart')
+        else:
+            return render_template("table_connect.html", success=False, error='Incorrect combination')
+    else:
+        # Handle GET request to render the login page
+        user_id = login_check()
+        if not user_id:
+            return redirect('/login')
+        if not party_check(user_id):
+            return render_template('table_connect.html')
+
+
 @app.route("/cart", methods=['POST', 'GET'])
 def cart():
+    # User check
     user_id = login_check()
     if not user_id:
         return redirect('/login')
+    # Table check
+    if not party_check(user_id):
+        return redirect('/table-connect')
+
     if request.method == 'POST':
         dish_name = request.form.get('dish_name')
         quantity = request.form.get('quantity')
-        new_order = Cart(table_id=1, dish_id=int(dish_name), quantity=quantity, special=" ")
-        db.session.add(new_order)
+        new_cart_entry = Cart(table_id=1, dish_id=int(dish_name), quantity=quantity, special=" ")
+        db.session.add(new_cart_entry)
         db.session.commit()
         return redirect("/cart")
         # return jsonify({'message': 'Order placed and paid', 'order_id': new_order.dish_id})
@@ -112,22 +139,28 @@ def cart():
 
 @app.route("/cart/order", methods=['POST', 'GET'])
 def cart_order():
+    # User check
     user_id = login_check()
     if not user_id:
         return redirect('/login')
+    # Table check
+    if not party_check(user_id):
+        return redirect('/table-connect')
     if request.method == 'POST':
-        # add an order to Orders table, ID auto increment
-        new_order = Order(status="0", customer_id=user_id, total=0)
-        db.session.add(new_order)
-        db.session.commit()
         # add item to Requests table
-        oid = new_order.id
         tid = Party.query.filter_by(customer_id=user_id).first().table_id
         items = Cart.query.filter_by(table_id=tid)
+        server_id = DiningTable.query.get(id=tid).server
+        # add an order to Orders table, ID auto increment
+        new_order = Order(status="0", customer_id=user_id, total=0, server_id=server_id)
+        db.session.add(new_order)
+        db.session.commit()
+        oid = new_order.id
         for item in items:
             new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity, special='0')
             db.session.add(new_request)
             db.session.commit()
+        clear_cart(tid)
         return redirect("/order")
     else:
         return render_template("cart.html")
@@ -135,9 +168,14 @@ def cart_order():
 
 @app.route('/cart/delete/<int:id>')
 def delete(id):
+    # User check
     user_id = login_check()
     if not user_id:
         return redirect('/login')
+    # Table check
+    if not party_check(user_id):
+        return redirect('/table-connect')
+
     item = Cart.query.filter_by(dish_id=id, table_id=1).first()
     db.session.delete(item)
     db.session.commit()
@@ -146,9 +184,14 @@ def delete(id):
 
 @app.route('/cart/add/<int:id>')
 def add(id):
+    # User check
     user_id = login_check()
     if not user_id:
         return redirect('/login')
+    # Table check
+    if not party_check(user_id):
+        return redirect('/table-connect')
+
     item = Cart.query.filter_by(dish_id=id, table_id=1).first()
     item.quantity += 1
     db.session.commit()
@@ -157,9 +200,14 @@ def add(id):
 
 @app.route('/cart/subtract/<int:id>')
 def subtract(id):
+    # User check
     user_id = login_check()
     if not user_id:
         return redirect('/login')
+    # Table check
+    if not party_check(user_id):
+        return redirect('/table-connect')
+
     item = Cart.query.filter_by(dish_id=id, table_id=1).first()
     item.quantity -= 1
     if item.quantity > 0:
@@ -180,18 +228,16 @@ def login_page():
         try:
             user = login_with_email(email, password)
             session['user'] = user
-            if is_staff(user['localId']):
-                return render_template('base/staff.html', layout='./base/staff.html')
-            return render_template("login.html", success=True, layout='./base/visitor.html')
+            return redirect('/')
         except ValueError as err:
-            return render_template("login.html", success=False, error=err, layout='./base/visitor.html')
+            return render_template("login.html", success=False, error=err)
     else:
         # Handle GET request to render the login page
         try:
             user_id = session['user']['localId']
         except KeyError:
             # User Not Logged in
-            return render_template("./login.html", layout='./base/visitor.html')
+            return render_template("./login.html")
         return redirect('/')
 
 
@@ -228,6 +274,8 @@ def server_landing():
         orders_data = Order.query.filter_by(server_id=user_id)
         # Get the table data related to that Server ID
         tables_data = get_tables_from_staff(staff_id=user_id)
+        if tables_data is None:
+            return redirect('/kitchen')
         return render_template("server.html", orders=orders_data, tables=tables_data, layout='./base/staff.html')
     else:
         # Not worker or not on duty (include manager and kitchen), return to order page.
