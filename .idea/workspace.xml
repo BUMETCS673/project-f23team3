@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="987d570c-475a-4b98-a8b2-d1678d737c70" name="Changes" comment="Role based navigation bar.">
-      <change afterPath="$PROJECT_DIR$/code/templates/kitchen.html" afterDir="false" />
+    <list default="true" id="987d570c-475a-4b98-a8b2-d1678d737c70" name="Changes" comment="Added kitchen.html, order.html and related functions">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4f108669-5358-43cb-bdb7-5a295c0cd4f1/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6dcf6469-3e9e-4409-a4a3-be25d3b55d29.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6dcf6469-3e9e-4409-a4a3-be25d3b55d29.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/Models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/instance/main.db" beforeDir="false" afterPath="$PROJECT_DIR$/code/instance/main.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/templates/base/customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/base/customer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/templates/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/templates/menu/full_menu/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/menu/full_menu/insert.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/templates/menu/main_menu/admin_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/menu/main_menu/admin_view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/templates/menu/main_menu/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/menu/main_menu/insert.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/templates/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/templates/order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +111,7 @@
   }
 }</component>
   <component name="QodanaCloudProjectLink">
-    <option name="lastReportId" value="e1Waw" />
+    <option name="lastReportId" value="yMPw1" />
     <option name="linkedProjectId" value="pQln1" />
     <option name="linkedProjectName" value="project-f23team3" />
     <option name="organizationId" value="3XkJ5" />
@@ -173,6 +164,8 @@
       <workItem from="1701506229809" duration="4371000" />
       <workItem from="1701554449437" duration="902000" />
       <workItem from="1701640749366" duration="12433000" />
+      <workItem from="1701723703924" duration="23000" />
+      <workItem from="1701733755519" duration="1817000" />
     </task>
     <task id="LOCAL-00001" summary="Conflicts resolved, Models.py structure and main.db are up-to-date as **11/13/2023**">
       <option name="closed" value="true" />
@@ -262,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701646649347</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added kitchen.html, order.html and related functions">
+      <option name="closed" value="true" />
+      <created>1701657006044</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1701657006044</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,7 +305,8 @@
     <MESSAGE value="Qodana fix." />
     <MESSAGE value="Populated Menu Pictures and descriptions." />
     <MESSAGE value="Role based navigation bar." />
-    <option name="LAST_COMMIT_MESSAGE" value="Role based navigation bar." />
+    <MESSAGE value="Added kitchen.html, order.html and related functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added kitchen.html, order.html and related functions" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/project_f23team3$RegiserPage.coverage" NAME="RegiserPage Coverage Results" MODIFIED="1698812202427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
