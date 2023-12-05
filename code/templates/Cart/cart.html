@@ -1,0 +1,11 @@
+<h1>Your dishes</h1>
+<ul>
+    {% for cart_item in cart_items %}
+        <li>
+            {{ cart_item.menu_dishes.name }} (Quantity: {{ cart_item.quantity }})
+            Price: ${{ cart_item.menu_dishes.price }} per item
+            <a href="{{ url_for('remove_from_cart', cart_item_id=cart_item.id) }}">Remove</a>
+        </li>
+    {% endfor %}
+</ul>
+<p>Total Price: ${{ total_price }}</p>

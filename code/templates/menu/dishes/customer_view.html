@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu/customer_view.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Dishes</h1> <h2><div id="cartTotal" class="cart-total"></div></h2>
+    <div class="menu-container">
+    {% if dishes_items %}
+        {% for e in dishes_items %}
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Dish Image">
+                <h3>{{ e.name }} | {{ e.price }}</h3>
+                <p>{{ e.description }}</p>
+              <button type="button" class="btn btn-success mainmenu-link" data-dish-id="{{ e.id }}" onclick="addToCart(this)"> Add to Cart </button>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="menu-item">
+            <h2>"Hakuna Matata"</h2><h3> Our kitchen is ready for you soon!</h3>
+            <img src="{{ url_for('static', filename='images/menu/hm.png') }}" alt="Main Menu Image">
+        </div>
+    {% endif %}
+    </div>
+
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Added successfully!</p>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        displayCartTotal();
+         });
+    function addToCart(link) {
+        var dishId = link.getAttribute('data-dish-id');
+
+        fetch('/add_to_cart/' + dishId)
+            .then(response => response.json())
+            .then(data => {
+
+                var modal = document.getElementById('successModal');
+                modal.style.display = 'block';
+
+                setTimeout(function () {
+                    modal.style.display = 'none';
+                }, 2000);
+                displayCartTotal();
+            })
+            .catch(error => console.error('Error adding to cart:', error));
+    }
+
+    document.querySelector('.modal .close').addEventListener('click', function () {
+        document.getElementById('successModal').style.display = 'none';
+    });
+
+     function displayCartTotal() {
+        var userId = 1;
+
+        fetch('/get_cart_total/' + userId)
+            .then(response => response.json())
+            .then(data => {
+
+                var cartTotalElement = document.getElementById('cartTotal');
+                cartTotalElement.innerHTML = 'Cart Total: $ ' + data.cart_total;
+            })
+            .catch(error => console.error('Error fetching cart total:', error));
+    }
+
+
+</script>
+
+
+{% endblock %}
