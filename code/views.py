@@ -137,6 +137,38 @@ def cart():
         # return render_template("cart.html")
 
 
+@app.route('/add_to_cart/<int:dish_id>', methods=['POST'])
+def add_to_cart(dish_id):
+    # Get the user's table ID
+    user_id = login_check()
+    if not user_id:
+        print('User is not logged in')
+        return jsonify({
+            'error': 'User is not logged in'
+        }), 400
+
+    # Check if the user is at a party
+    if not party_check(user_id):
+        print('User is not in a party')
+        return jsonify({
+            'error': 'User is not in a party'
+        }), 400
+
+    # Add the dish to the cart
+    print("Adding to the cart...")
+    table_id = Party.query.filter_by(customer_id=user_id).first().table_id
+    cart_item = Cart(table_id=table_id, dish_id=dish_id, quantity=1)
+    db.session.add(cart_item)
+    db.session.commit()
+
+    # Calculate the cart total
+    cart_total = get_cart_total(table_id)
+
+    return jsonify({
+        'cartTotal': cart_total
+    })
+
+
 @app.route("/cart/order", methods=['POST', 'GET'])
 def cart_order():
     # User check
@@ -164,6 +196,7 @@ def cart_order():
         return redirect("/order")
     else:
         return render_template("cart.html")
+
 
 
 @app.route('/cart/delete/<int:id>')
@@ -274,8 +307,6 @@ def server_landing():
         orders_data = Order.query.filter_by(server_id=user_id)
         # Get the table data related to that Server ID
         tables_data = get_tables_from_staff(staff_id=user_id)
-        if tables_data is None:
-            return redirect('/kitchen')
         return render_template("server.html", orders=orders_data, tables=tables_data, layout='./base/staff.html')
     else:
         # Not worker or not on duty (include manager and kitchen), return to order page.
@@ -296,11 +327,11 @@ def customer_index():
     main_dishes = DishType.query.all()
     try:
         user_id = session['user']['localId']
-        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes,
+        return render_template('./menu/main_dishes/customer_view.html', main_dishes=main_dishes,
                                layout='./base/customer.html')
     except KeyError:
         # User Not Logged in
-        return render_template('./menu/main_menu/customer_view.html', main_dishes=main_dishes,
+        return render_template('./menu/main_dishes/customer_view.html', main_dishes=main_dishes,
                                layout='./base/visitor.html')
 
 
@@ -310,7 +341,7 @@ def admin_index():
     if not user_id:
         return redirect('/login')
     main_dish_items = DishType.query.all()
-    return render_template('./menu/main_menu/admin_view.html', main_menu_items=main_dish_items)
+    return render_template('./menu/main_dishes/admin_view.html', main_menu_items=main_dish_items)
 
 
 @app.route('/general_insert_form')  # main dishes insert form
@@ -318,7 +349,7 @@ def general_insert_index():
     user_id = login_check(must_staff=True)
     if not user_id:
         return redirect('/login')
-    return render_template('./menu/main_menu/insert.html')
+    return render_template('./menu/main_dishes/insert.html')
 
 
 @app.route('/insert_general_dishes', methods=['POST'])
@@ -342,7 +373,7 @@ def dishes_insert_index():
     if not user_id:
         return redirect('/login')
     main_menu_data = db.session.query(Dish.id, Dish.name).all()
-    return render_template('menu/full_menu/insert.html', main_menus=main_menu_data)
+    return render_template('menu/dishes/insert.html', main_menus=main_menu_data)
 
 
 @app.route('/dishes_insert_post', methods=['POST'])  # dishes menu insert action method for POST
@@ -369,9 +400,9 @@ def dishes_customer_index(general_dish_id):
     dishes_items = Dish.query.filter_by(general_dish_id=general_dish_id).all()
     try:
         user_id = session['user']['localId']
-        return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items,
+        return render_template('menu/dishes/customer_view.html', dishes_items=dishes_items,
                                layout='./base/customer.html')
     except KeyError:
         # User Not Logged in
-        return render_template('menu/full_menu/customer_view.html', dishes_items=dishes_items,
+        return render_template('menu/dishes/customer_view.html', dishes_items=dishes_items,
                                layout='./base/visitor.html')

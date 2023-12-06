@@ -10,27 +10,19 @@
         <h2>Main Menu Data</h2>
         <!-- Main menu dropdown list -->
         <label for="main_menu_id">Select Main Menu:</label>
-        <label>
-            <select name="main_menu_id" required>
-                {% for main_menu in main_menus %}
-                <option value="{{ main_menu.id }}">{{ main_menu.name }}</option>
-                {% endfor %}
-            </select>
-        </label>
+        <select name="main_menu_id" required>
+            {% for main_menu in main_menus %}
+            <option value="{{ main_menu.id }}">{{ main_menu.name }}</option>
+            {% endfor %}
+        </select>
 
         <h2>Full Menu Data</h2>
         <label for="name">Full Menu Name:</label>
-        <label>
-            <input type="text" name="name" required>
-        </label><br>
+        <input type="text" name="name" required><br>
         <label for="description">Full Menu Description:</label>
-        <label>
-            <textarea name="description" required></textarea>
-        </label><br>
+        <textarea name="description" required></textarea><br>
         <label for="price">Full Menu Price:</label>
-        <label>
-            <input type="text" name="price" required>
-        </label><br>
+        <input type="text" name="price" required><br>
 
         <input type="submit" value="Submit">
     </form>

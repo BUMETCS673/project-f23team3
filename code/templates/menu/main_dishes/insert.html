@@ -8,19 +8,13 @@
     <h1>Data Insertion Form</h1>
     <form action="/insert_post" method="POST" enctype="multipart/form-data">
         <label for="name">Name:</label>
-        <label>
-            <input type="text" name="name" required>
-        </label><br>
+        <input type="text" name="name" required><br>
 
         <label for="description">Description:</label>
-        <label>
-            <textarea name="description" required></textarea>
-        </label><br>
+        <textarea name="description" required></textarea><br>
 
-        <label for="image_url">Image URL:</label>
-        <label>
-            <textarea name="image_url" required></textarea>
-        </label><br>
+        <label for="image">Image:</label>
+        <input type="file" name="image" accept="image/*"><br>
 
         <input type="submit" value="Submit">
     </form>

@@ -12,6 +12,13 @@ def get_orders_from_staff(staff_id):
     return orders
 
 
+def get_tables_from_staff(staff_id):
+    # Find all dining tables served by the given staff member
+    tables_serving = DiningTable.query.filter_by(server=staff_id).all()
+
+    return tables_serving
+
+
 def find_name_from_id(user_id):
     # Check if the id is in the Customers table
     customer = Customer.query.filter_by(id=user_id).first()
