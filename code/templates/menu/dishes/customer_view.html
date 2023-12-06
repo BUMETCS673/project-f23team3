@@ -1,16 +1,18 @@
-{% extends 'base.html' %}
+{% extends layout %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu/customer_view.css') }}">
+    <title>Menu</title>
 {% endblock %}
 
 {% block body %}
-    <h1>Dishes</h1> <h2><div id="cartTotal" class="cart-total"></div></h2>
+    <h1>Dishes</h1>
+    <h2 id="cartTotal" class="cart-total"></h2>
     <div class="menu-container">
     {% if dishes_items %}
         {% for e in dishes_items %}
             <div class="menu-item">
-                <img src="{{ url_for('static', filename='images/menu/mm.png') }}" alt="Main Dish Image">
+                <img src="{{ e.pic_url }}" alt="Main Dish Image">
                 <h3>{{ e.name }} | {{ e.price }}</h3>
                 <p>{{ e.description }}</p>
               <button type="button" class="btn btn-success mainmenu-link" data-dish-id="{{ e.id }}" onclick="addToCart(this)"> Add to Cart </button>
@@ -31,7 +33,7 @@
             <p>Added successfully!</p>
         </div>
     </div>
-
+<div class="text-center"><a href="/menu" class="btn btn-primary">Back to Main Menu</a></div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         displayCartTotal();

@@ -3,22 +3,29 @@
 {% block head %}
     <title> Better Menu </title>
     <style>
-        body {
-            background: url('../static/images/chinesedragon.jpg') no-repeat center center; /* 中国龙背景图 */
-            background-size: cover;
-            background-position: center 40%;
-            font-family: 'ZCOOL XiaoWei', serif; /* 适合中文的字体 */
-        }
         .welcome-message {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #ffffff;
+            color: #030303;
             text-align: center;
             opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards; /* 渐变动画 */
+            animation: fadeIn 2s ease-in-out forwards;
             font-size: 100px;
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明背景 */
+            border-radius: 10px; /* 轻微圆角 */
+            padding: 20px; /* 内边距 */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* 轻微阴影增加立体感 */
+            max-width: 80%; /* 最大宽度，以防文本太长 */
+            box-sizing: border-box; /* 确保内边距不影响总宽度 */
+        }
+        .sub-welcome {
+            color: #030303; /* 或任何合适的颜色 */
+            font-size: 0.5em; /* 适当调整大小 */
+            margin-top: 20px; /* 顶部间隔 */
+            opacity: 1; /* 使其不透明 */
+            animation: none; /* 如果不需要动画，可以去掉 */
         }
         @keyframes fadeIn {
             to { opacity: 1; }
@@ -65,7 +72,7 @@
         }
         .water-ink-style {
             font-family: 'Ma Shan Zheng', cursive;
-            font-size: 70px;
+            font-size: 15px;
             opacity: 0;
             animation: fadeIn 2s ease-in-out forwards;
         }
@@ -74,9 +81,11 @@
 
 
 {% block body %}
+
 <!-- Welcome Message -->
 <div class="welcome-message">
     <h1>Welcome to bugkiller restaurant</h1>
+    <p class="sub-welcome">Delicious food at bugkiller restaurant !</p>
 </div>
 
 <!-- Chinese Food Gallery -->
@@ -96,7 +105,7 @@
 
 <!-- 字体 -->
 <div class="water-ink-style">
-    Delicious food at bugkiller restaurant ！
+    I can sing jump rap and basketball ! music !!!
 </div>
 
 <div class="qr-container">
