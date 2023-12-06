@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title> Reset Password </title>
+{% endblock %}
+
+{% block body %}
+    <div class="position-relative" style="margin-left: 45px;">
+        <h2>Reset Password</h2>
+        <form action="{{ url_for('sign_up_page') }}" method="post">
+            <div class="row mb-3">
+                <label for="inputEmail" class="col-form-label">Email</label>
+                <div class="col-sm-3">
+                    <input type="email" class="form-control" id="inputEmail" name="inputEmail">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Reset</button>
+        </form>
+    </div>
+
+    <div class="position-relative" style="margin-left: 45px;">
+        {% if success %}
+            <p style="color: green;">Success, please verify your email address before login.</p>
+        {% endif %}
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
