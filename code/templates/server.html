@@ -18,10 +18,8 @@
                     <thead>
                         <tr>
                             <th scope="col">Order ID</th>
-                            <th scope="col">Table ID</th>
-                            <th scope="col">Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Payment</th>
+                            <th scope="col">Total</th>
                             <th scope="col">Requests</th>
                         </tr>
                     </thead>
@@ -29,10 +27,8 @@
                         {% for order in orders %}
                             <tr>
                                 <td>{{ order.id }}</td>
-                                <td>{{ order.table_id }}</td>
-                                <td>{{ order.date }}</td>
                                 <td>{{ order.status }}</td>
-                                <td>{{ order.payment }}</td>
+                                <td>{{ order.total }}</td>
                                 <td>{{ order.request }}</td>
                             </tr>
                         {% endfor %}
@@ -52,7 +48,7 @@
                         <tr>
                             <th scope="col">Table ID</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Capacity</th>
+                            <th scope="col">Passphrase</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,7 +56,7 @@
                             <tr>
                                 <td>{{ table.id }}</td>
                                 <td>{{ table.status }}</td>
-                                <td>{{ table.capacity }}</td>
+                                <td>{{ table.passphrase }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

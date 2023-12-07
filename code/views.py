@@ -90,8 +90,8 @@ def kitchen():
     if request.method == 'POST':
         return redirect("/kitchen")
     else:
-        oids = db.session.query(Order.id).filter_by(status="0")
-        kitchen_items = db.session.query(Requests, Dish).filter(Requests.order_id.in_(oids), Requests.special=="0", Requests.dish_id==Dish.id).all()
+        oids = db.session.query(Order.id).filter_by(status="Preparing")
+        kitchen_items = db.session.query(Requests, Dish).filter(Requests.order_id.in_(oids), Requests.special=="Preparing", Requests.dish_id==Dish.id).all()
         # return jsonify({'message': kitchen_items[0].quantity})
         return render_template("kitchen.html", kitchen_items=kitchen_items)
 
@@ -102,7 +102,7 @@ def finish_order(oid,did):
     if not user_id:
         return redirect('/login')
     item = Requests.query.filter_by(order_id=oid, dish_id=did).first()
-    item.special = "1"
+    item.special = "Ready"
     db.session.commit()
     return redirect("/kitchen")
 
@@ -222,14 +222,14 @@ def cart_order():
         # add item to Requests table
         tid = Party.query.filter_by(customer_id=user_id).first().table_id
         items = Cart.query.filter_by(table_id=tid)
-        server_id = DiningTable.query.get(id=tid).server
+        server_id = DiningTable.query.filter_by(id=tid).first().server
         # add an order to Orders table, ID auto increment
-        new_order = Order(status="0", customer_id=user_id, total=0, server_id=server_id)
+        new_order = Order(status="Preparing", customer_id=user_id, total=get_cart_total(tid), server_id=server_id)
         db.session.add(new_order)
         db.session.commit()
         oid = new_order.id
         for item in items:
-            new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity, special='0')
+            new_request = Requests(order_id=oid, dish_id=item.dish_id, quantity=item.quantity, special='Preparing')
             db.session.add(new_request)
             db.session.commit()
         clear_cart(tid)
@@ -300,7 +300,7 @@ def login_page():
         try:
             user = login_with_email(email, password)
             session['user'] = user
-            return redirect('/menu')
+            return redirect('/')
         except ValueError as err:
             return render_template("login.html", success=False, error=err)
     else:
@@ -310,7 +310,7 @@ def login_page():
         except KeyError:
             # User Not Logged in
             return render_template("./login.html")
-        return redirect('/menu')
+        return redirect('/')
 
 
 @app.route("/register", methods=["GET", "POST"])
