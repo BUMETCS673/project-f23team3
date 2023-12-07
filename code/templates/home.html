@@ -3,6 +3,12 @@
 {% block head %}
     <title> Better Menu </title>
     <style>
+        body {
+            background: url('../static/images/bg-pic.jpg') no-repeat center center; /* 中国龙背景图 */
+            background-size: cover;
+            background-position: center 40%;
+            font-family: 'ZCOOL XiaoWei', serif; /* 适合中文的字体 */
+        }
         .welcome-message {
             position: absolute;
             top: 50%;
@@ -100,7 +106,6 @@
     <a href="/login" class="btn btn-chinese-style">Log in</a>
     <a href="/register" class="btn btn-chinese-style">register</a>
     <a href="/menu" class="btn btn-chinese-style">menu</a>
-    <a href="/cart" class="btn btn-chinese-style">cart</a>
 </div>
 
 <!-- 字体 -->
