@@ -70,14 +70,15 @@ def order():
     if request.method == 'POST':
         return redirect("/order")
     else:
-        order_items = db.session.query(Order.id, Requests).filter(Requests.order_id == Order.id).filter_by(
-            customer_id=user_id).all()
+        order_items = (db.session.query(Order.id, Requests, Dish).filter(Requests.order_id == Order.id, Dish.id == Requests.dish_id).
+                       filter_by(customer_id=user_id).all())
         order_dict = {}
         for item in reversed(order_items):
             if item[0] in order_dict:
-                order_dict[item[0]].append(item[1])
+                order_dict[item[0]].append(item[1:])
             else:
-                order_dict[item[0]] = [item[1]]
+                order_dict[item[0]] = [item[1:]]
+
         return render_template("order.html", order_items=order_dict)
 
 
@@ -90,18 +91,18 @@ def kitchen():
         return redirect("/kitchen")
     else:
         oids = db.session.query(Order.id).filter_by(status="0")
-        kitchen_items = db.session.query(Requests).filter(Requests.order_id.in_(oids)).all()
+        kitchen_items = db.session.query(Requests, Dish).filter(Requests.order_id.in_(oids), Requests.special=="0", Requests.dish_id==Dish.id).all()
         # return jsonify({'message': kitchen_items[0].quantity})
         return render_template("kitchen.html", kitchen_items=kitchen_items)
 
 
-@app.route('/kitchen/finish/<int:id>')
-def finish_order(id):
+@app.route('/kitchen/finish/<int:oid>/<int:did>')
+def finish_order(oid,did):
     user_id = login_check(must_staff=True)
     if not user_id:
         return redirect('/login')
-    item = Order.query.filter_by(id=id).first()
-    item.status = "1"
+    item = Requests.query.filter_by(order_id=oid, dish_id=did).first()
+    item.special = "1"
     db.session.commit()
     return redirect("/kitchen")
 
@@ -137,17 +138,20 @@ def cart():
     # Table check
     if not party_check(user_id):
         return redirect('/table-connect')
+    table_id = Party.query.filter_by(customer_id=user_id).first().table_id
 
     if request.method == 'POST':
         dish_name = request.form.get('dish_name')
         quantity = request.form.get('quantity')
-        new_cart_entry = Cart(table_id=1, dish_id=int(dish_name), quantity=quantity, special=" ")
+        new_cart_entry = Cart(table_id=table_id, dish_id=int(dish_name), quantity=quantity, special=" ")
         db.session.add(new_cart_entry)
         db.session.commit()
         return redirect("/cart")
         # return jsonify({'message': 'Order placed and paid', 'order_id': new_order.dish_id})
     else:
         cart_items = Cart.query.filter_by(table_id=1).all()
+        cart_items = db.session.query(Cart, Dish).filter(Dish.id == Cart.dish_id).filter_by(
+            table_id=table_id).all()
         return render_template("cart.html", cart_items=cart_items)
         # return render_template("cart.html")
 
@@ -296,7 +300,7 @@ def login_page():
         try:
             user = login_with_email(email, password)
             session['user'] = user
-            return redirect('/')
+            return redirect('/menu')
         except ValueError as err:
             return render_template("login.html", success=False, error=err)
     else:
@@ -306,7 +310,7 @@ def login_page():
         except KeyError:
             # User Not Logged in
             return render_template("./login.html")
-        return redirect('/')
+        return redirect('/menu')
 
 
 @app.route("/register", methods=["GET", "POST"])
