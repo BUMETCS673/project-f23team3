@@ -22,29 +22,24 @@
           <!-- Your table rows go here -->
             {% for item in cart_items %}
                 <tr>
-                    <td>{{ item.dish_id }}</td>
-                    <td><a href="cart/subtract/{{item.dish_id}}" style="text-decoration: none"> - </a>{{ item.quantity }}<a href="cart/add/{{item.dish_id}}" style="text-decoration: none"> + </a></td>
+                    <td>{{ item[1].name }}</td>
+                    <td><a href="cart/subtract/{{item.dish_id}}" style="text-decoration: none"> - </a>{{ item[0].quantity }}<a href="cart/add/{{item[0].dish_id}}" style="text-decoration: none"> + </a></td>
                     <td>
-                        <a href="cart/delete/{{item.dish_id}}">Delete</a>
+                        <a href="cart/delete/{{item[0].dish_id}}">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
       </table>
     </div>
-    {% endif %}
-
     <div class="form mt-5">
-        <form action="/cart" method="POST" class="d-flex justify-content-center flex-column align-items-center">
-            <label for="dish_name">Enter Dish Name</label>
-            <input type="number" min="1" name="dish_name" id="dish_name" class="form-control w-50 mb-3">
-            <label for="quantity">Quantity</label>
-            <input type="number" min="1" name="quantity" id="quantity" class="form-control w-50 mb-3">
-            <input type="submit" value="Add item" class="btn btn-primary mb-2">
+        <form action="/cart/order" method="POST" class="d-flex justify-content-center flex-column align-items-center">
+            <input type="submit" value="Order" class="btn btn-success">
         </form>
     </div>
-    <form action="/cart/order" method="POST" class="d-flex justify-content-center flex-column align-items-center">
-            <input type="submit" value="Order" class="btn btn-success">
-    </form>
+    {% endif %}
+
+
+
 </div>
 {% endblock %}

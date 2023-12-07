@@ -5,4 +5,3 @@ mock == 5.1.0
 flask-testing == 0.8.1
 selenium == 4.16.0
 flask-socketio == 5.3.6
-eventlet == 0.33.3
