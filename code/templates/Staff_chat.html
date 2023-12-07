@@ -11,23 +11,29 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Service Center</h3>
+    <div class="container">
+    <h3 class="display-6">Service Center</h3>
     <form id="joinRoom" method="POST" action="#">
-        <label>Secretkey</label>
-        <input type="text" id="secretkeyNum" required>
-        <input type="submit" id="submitSecretkeyNum">
+        <div class="mb-3">
+            <label for="secretkeyNum" class="form-label">Secretkey</label>
+            <input type="text" class="form-control" id="secretkeyNum" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitSecretkeyNum">Join Room</button>
     </form>
-    <button id="leave_room">Leave</button>
+    <button id="leave_room" class="btn btn-secondary mt-3">Leave Room</button>
 
-    <ul id="chatContent"></ul>
+    <ul id="chatContent" class="list-group list-group-flush mt-3"></ul>
 
     <form id="SubmitForm" method="POST" action="#">
-        <textarea placeholder="Type here..." name="msg" id="chatMsg" required></textarea>
-        <button type="submit">enter</button>
+        <div class="mb-3">
+            <textarea placeholder="Type here..." name="msg" id="chatMsg" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
     </form>
 
-    <button style="background-color: green" type="submit" id="serverMsg"><b>Confirmation</b></button>
+    <button id="serverMsg" class="btn btn-success mt-3"><b>Confirmation</b></button>
+    <button id="kitchenMsg" class="btn btn-danger mt-3"><b>Serve Dishes</b></button>
+</div>
 
-    <button style="background-color: red" type="submit" id="kitchenMsg"><b>Serve Dishes</b></button>
     <script type="text/javascript" src="../static/chatroom.js"></script>
 {% endblock %}

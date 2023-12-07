@@ -12,21 +12,22 @@ $(document).ready(function() {
     });
 
     socket.on('roomJoined', function (msg, cb) {
-        $('#chatContent').append('<li>' + msg.user + ' has joined the service center' + '</li>')
+    $('#chatContent').append('<div class="chat-message"><b>' + msg.user + ' has joined the service center.</b></div>');
     });
 
     socket.on('roomLeftPersonal', function (msg, cb) {
-        $('#chatContent').append('<li>' + ' you have left the service center' + '</li>')
+        $('#chatContent').append('<div class="chat-message"><b>You have left the service center.</b></div>');
     });
 
     socket.on('roomLeft', function (msg, cb) {
-        $('#chatContent').append('<li>' + msg.user + ' has left the service center' + '</li>')
+        $('#chatContent').append('<div class="chat-message"><b>' + msg.user + ' has left the service center.</b></div>');
     });
 
     $('#leave_room').on('click', function () {
         socket.emit('leaveRoom', {
             secretkey: $('#secretkeyNum').val()
         });
+        location.assign("/chat");
     });
 
     $('form#SubmitForm').submit(function(){
@@ -39,11 +40,11 @@ $(document).ready(function() {
     });
 
     socket.on('sendtoAll', function(msg, cb){
-        $('#chatContent').append('<li>' + msg.user + ':' + msg.msg + '</li>')
+        $('#chatContent').append('<div class="chat-message"><b>' + msg.user + ':</b> ' + msg.msg + '</div>');
     });
 
     socket.on('Confserver', function (msg, cb) {
-        $('#chatContent').append('<li>' + msg.user + ':' + '<b><p style="color: green">copy that, I am on my way</p></b>' + '</li>')
+        $('#chatContent').append('<div class="chat-message"><b>' + msg.user + ':</b> <b><p style="color: green">Copy that, I am on my way.</p></b></div>');
     });
 
     $('#serverMsg').on('click', function () {
@@ -53,8 +54,7 @@ $(document).ready(function() {
     });
 
     socket.on('Conf_kitchen', function (msg, cb) {
-        $('#chatContent').append('<li>' + msg.user + ':' + '<b> <p style="color: red">Please serve the dishes</p> </b>' + '</li>')
-
+        $('#chatContent').append('<div class="chat-message"><b>' + msg.user + ':</b> <b><p style="color: red">Please serve the dishes.</p></b></div>');
     });
 
     $('#kitchenMsg').on('click', function () {
@@ -62,4 +62,5 @@ $(document).ready(function() {
             secretkey: $('#secretkeyNum').val()
         });
     });
+
 })

@@ -2,9 +2,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 import os
-from flask_socketio import SocketIO, send, emit, join_room, leave_room
-import eventlet
-eventlet.monkey_patch()
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
 socketio = SocketIO(app)
