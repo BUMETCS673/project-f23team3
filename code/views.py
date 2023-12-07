@@ -55,14 +55,15 @@ def order():
     if request.method == 'POST':
         return redirect("/order")
     else:
-        order_items = db.session.query(Order.id, Requests).filter(Requests.order_id == Order.id).filter_by(
-            customer_id=user_id).all()
+        order_items = (db.session.query(Order.id, Requests, Dish).filter(Requests.order_id == Order.id, Dish.id == Requests.dish_id).
+                       filter_by(customer_id=user_id).all())
         order_dict = {}
         for item in reversed(order_items):
             if item[0] in order_dict:
-                order_dict[item[0]].append(item[1])
+                order_dict[item[0]].append(item[1:])
             else:
-                order_dict[item[0]] = [item[1]]
+                order_dict[item[0]] = [item[1:]]
+
         return render_template("order.html", order_items=order_dict)
 
 
