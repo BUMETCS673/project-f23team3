@@ -1,6 +1,9 @@
 import unittest
+import sys
+sys.path.insert(0, '../')
 from app import app, db
 from Models import Orders, Customers, Dining_tables, Staffs
+
 
 class OrderManagementTestCase(unittest.TestCase):
 
