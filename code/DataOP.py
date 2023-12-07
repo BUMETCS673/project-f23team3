@@ -130,12 +130,18 @@ def join_party(user_id, table_id, passphrase):
 
 def get_cart_total(table_id):
     carts = Cart.query.filter_by(table_id=table_id).all()
-    if carts is None:
-        return 0
-    # Calculate the total cost
-    total_cost = sum([Dish.query.get(cart.dish_id).cost * cart.quantity for cart in carts])
+    cart_items = db.session.query(Cart).filter_by(table_id=table_id).all()
 
-    return total_cost
+    # Calculate the total cost
+    total = 0
+    for item in cart_items:
+        # Get the dish cost
+        dish_cost = db.session.query(Dish).filter_by(id=item.dish_id).first().cost
+
+        # Add the item cost to the total
+        total += dish_cost * item.quantity
+
+    return total
 
 
 def party_check(user_id):

@@ -41,17 +41,22 @@
     function addToCart(link) {
         var dishId = link.getAttribute('data-dish-id');
 
-        fetch('/add_to_cart/' + dishId)
+        fetch('/add_to_cart/' + dishId, {method: 'GET'})
             .then(response => response.json())
             .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    var modal = document.getElementById('successModal');
+                    modal.style.display = 'block';
 
-                var modal = document.getElementById('successModal');
-                modal.style.display = 'block';
+                    setTimeout(function () {
+                        modal.style.display = 'none';
+                    }, 2000);
 
-                setTimeout(function () {
-                    modal.style.display = 'none';
-                }, 2000);
-                displayCartTotal();
+                    // Update the cart total on the UI
+                    displayCartTotal(data.cartTotal);
+                }
             })
             .catch(error => console.error('Error adding to cart:', error));
     }
@@ -61,12 +66,10 @@
     });
 
      function displayCartTotal() {
-        var userId = 1;
 
-        fetch('/get_cart_total/' + userId)
+        fetch('/cart_total/', {method: 'GET'})
             .then(response => response.json())
             .then(data => {
-
                 var cartTotalElement = document.getElementById('cartTotal');
                 cartTotalElement.innerHTML = 'Cart Total: $ ' + data.cart_total;
             })
