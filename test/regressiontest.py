@@ -26,13 +26,13 @@ class AdvancedTests(TestCase):
         db.drop_all()
 
     def populate_db(self):
-        # 使用随机或每次测试都不同的 id 值
+        # Use random or different id values for each test
         random_id = str(randint(1000, 9999))
         customer = Customer(id=random_id, name="Jane Doe", email="jane@example.com")
         db.session.add(customer)
         db.session.commit()
 
-    # 测试用户注册
+    # Test user registration
     def test_user_registration(self):
         with self.client:
             response = self.client.post('/register', data=dict(
@@ -42,7 +42,7 @@ class AdvancedTests(TestCase):
             ), follow_redirects=True)
             self.assertIn(b'Success, please verify your email address before login.', response.data)
 
-    # 测试用户登录
+    # Test user login
     def test_user_login(self):
         with self.client:
             response = self.client.post('/login', data=dict(
@@ -50,22 +50,21 @@ class AdvancedTests(TestCase):
                 inputPassword="password"
             ), follow_redirects=True)
             self.assertEqual(response.status_code, 200)
-            # 检查是否重定向到了正确的页面
+            # Check whether redirecting to the correct page
             self.assertIn('/menu', response.request.path)
-    # 测试清空购物车
+    # Test empty cart
     def test_clear_cart(self):
         with self.client:
-            clear_cart(1)  # 假设表ID为1
-            # 进一步检查购物车是否清空
+            clear_cart(1)  # Suppose the table ID is 1
 
-    # 测试数据库模型
+    # Test database model
     def test_order_model(self):
         order = Order(id=1, status="pending")
         db.session.add(order)
         db.session.commit()
         self.assertEqual(order.status, "pending")
 
-    # 测试 Firebase 集成
+    # Test the Firebase integration
     @patch('CloudOP.requests.post')
     def test_firebase_integration(self, mock_post):
         mock_post.return_value.json.return_value = {
@@ -75,7 +74,7 @@ class AdvancedTests(TestCase):
         response = register_with_email("test@example.com", "password")
         self.assertEqual(response['email'], "test@example.com")
 
-    # 测试特定路由的响应
+    # Test the response of a specific route
     def test_specific_route(self):
         response = self.client.get('/some_route')
         self.assertEqual(response.status_code, 404)
