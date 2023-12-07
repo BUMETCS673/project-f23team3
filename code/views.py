@@ -137,7 +137,32 @@ def cart():
         # return render_template("cart.html")
 
 
-@app.route('/add_to_cart/<int:dish_id>', methods=['POST'])
+@app.route("/cart_total", methods=["GET"])
+def cart_total():
+    user_id = login_check()
+    if not user_id:
+        print('User is not logged in')
+        return jsonify({
+            'error': 'User is not logged in'
+        }), 400
+    if not party_check(user_id):
+        print('User is not in a party')
+        return jsonify({
+            'error': 'User is not in a party'
+        }), 400
+
+    # Add the dish to the cart
+    print("Getting cart total...")
+    table_id = Party.query.filter_by(customer_id=user_id).first().table_id
+    # Calculate the cart total
+    cart_total = get_cart_total(table_id)
+
+    return jsonify({
+        'cartTotal': cart_total
+    })
+
+
+@app.route('/add_to_cart/<int:dish_id>', methods=['GET'])
 def add_to_cart(dish_id):
     # Get the user's table ID
     user_id = login_check()
@@ -157,9 +182,17 @@ def add_to_cart(dish_id):
     # Add the dish to the cart
     print("Adding to the cart...")
     table_id = Party.query.filter_by(customer_id=user_id).first().table_id
-    cart_item = Cart(table_id=table_id, dish_id=dish_id, quantity=1)
-    db.session.add(cart_item)
-    db.session.commit()
+    existing_item = db.session.query(Cart).filter_by(table_id=table_id, dish_id=dish_id).first()
+
+    if existing_item:
+        # Update the existing quantity
+        existing_item.quantity += 1
+        db.session.commit()
+    else:
+        # Add a new cart item
+        new_item = Cart(table_id=table_id, dish_id=dish_id, quantity=1)
+        db.session.add(new_item)
+        db.session.commit()
 
     # Calculate the cart total
     cart_total = get_cart_total(table_id)
@@ -196,7 +229,6 @@ def cart_order():
         return redirect("/order")
     else:
         return render_template("cart.html")
-
 
 
 @app.route('/cart/delete/<int:id>')
