@@ -76,7 +76,7 @@ def kitchen():
         return redirect("/kitchen")
     else:
         oids = db.session.query(Order.id).filter_by(status="0")
-        kitchen_items = db.session.query(Requests).filter(Requests.order_id.in_(oids), Requests.special=="0").all()
+        kitchen_items = db.session.query(Requests, Dish).filter(Requests.order_id.in_(oids), Requests.special=="0", Requests.dish_id==Dish.id).all()
         # return jsonify({'message': kitchen_items[0].quantity})
         return render_template("kitchen.html", kitchen_items=kitchen_items)
 
