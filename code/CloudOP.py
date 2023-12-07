@@ -1,6 +1,7 @@
 import requests
 from Config import firebase_config as config
 
+
 def firebase_request(url, email, password):
     data = {
         'email': email,

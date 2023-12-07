@@ -1,0 +1,33 @@
+{% extends './base/staff.html' %}
+
+{% block head %}
+<title>Staff Chatroom</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" ></script>
+
+{% endblock %}
+
+{% block body %}
+    <h3>Service Center</h3>
+    <form id="joinRoom" method="POST" action="#">
+        <label>Secretkey</label>
+        <input type="text" id="secretkeyNum" required>
+        <input type="submit" id="submitSecretkeyNum">
+    </form>
+    <button id="leave_room">Leave</button>
+
+    <ul id="chatContent"></ul>
+
+    <form id="SubmitForm" method="POST" action="#">
+        <textarea placeholder="Type here..." name="msg" id="chatMsg" required></textarea>
+        <button type="submit">enter</button>
+    </form>
+
+    <button style="background-color: green" type="submit" id="serverMsg"><b>Confirmation</b></button>
+
+    <button style="background-color: red" type="submit" id="kitchenMsg"><b>Serve Dishes</b></button>
+    <script type="text/javascript" src="../static/chatroom.js"></script>
+{% endblock %}
