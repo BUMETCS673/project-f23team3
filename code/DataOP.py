@@ -23,7 +23,7 @@ def find_name_from_id(user_id):
     # Check if the id is in the Customers table
     customer = Customer.query.filter_by(id=user_id).first()
     if customer:
-        return customer.preferred_name
+        return customer.name
     # Check if the id is in the Staffs table
     staff = Staff.query.filter_by(id=user_id).first()
     if staff:
