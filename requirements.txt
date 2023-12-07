@@ -4,3 +4,5 @@ Pyrebase4lite
 requests == 2.31.0
 requests-toolbelt == 0.10.1
 mock == 5.1.0
+flask-testing == 0.8.1
+selenium == 4.16.0

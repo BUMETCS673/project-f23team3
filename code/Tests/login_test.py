@@ -1,5 +1,8 @@
 import unittest
+import sys
+sys.path.insert(0, '../')
 from app import app, db
+
 
 class LoginTestCase(unittest.TestCase):
 
@@ -23,7 +26,6 @@ class LoginTestCase(unittest.TestCase):
         response = self.client.get('/login')
         self.assertEqual(response.status_code, 200)
         self.assertIn('Login', response.get_data(as_text=True))
-
 
 
 if __name__ == '__main__':

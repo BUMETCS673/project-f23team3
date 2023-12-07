@@ -1,5 +1,7 @@
 import unittest
-from app import app  # 假设 CartPage.py 包含了 Flask 应用实例、数据库实例和 Cart 模型
+import sys
+sys.path.insert(0, '../')
+from app import app
 from Models import db, Cart, Dishes
 
 
