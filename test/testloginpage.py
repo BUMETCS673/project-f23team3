@@ -4,7 +4,7 @@ from app import app, db
 class LoginTestCase(unittest.TestCase):
 
     def setUp(self):
-        # 设置测试环境
+        # Setting up the test environment
         app.config['TESTING'] = True
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         self.client = app.test_client()
@@ -13,13 +13,13 @@ class LoginTestCase(unittest.TestCase):
         db.create_all()
 
     def tearDown(self):
-        # 清理环境
+        # Clean up the environment
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
 
     def test_login_page(self):
-        # 测试 GET 请求
+        # Test GET request
         response = self.client.get('/login')
         self.assertEqual(response.status_code, 200)
         self.assertIn('Login', response.get_data(as_text=True))
