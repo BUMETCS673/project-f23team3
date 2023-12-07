@@ -129,7 +129,6 @@ def join_party(user_id, table_id, passphrase):
 
 
 def get_cart_total(table_id):
-    carts = Cart.query.filter_by(table_id=table_id).all()
     cart_items = db.session.query(Cart).filter_by(table_id=table_id).all()
 
     # Calculate the total cost

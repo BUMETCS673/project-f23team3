@@ -1,23 +1,29 @@
 from flask import render_template, request, session, redirect, jsonify, url_for
 from CloudOP import register_with_email, login_with_email
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from DataOP import *
 from Models import *
-from app import app
+from app import app, socketio
 
 
-def login_check(must_staff=False):
+def login_check(must_staff=False, in_table=False):
     # Login Check
     try:
-        userID = session['user']['localId']
+        user_id = session['user']['localId']
     except KeyError:
         return False
     if must_staff:
-        if is_staff(userID):
-            return userID
+        if is_staff(user_id):
+            return user_id
+        else:
+            return False
+    if in_table:
+        if party_check(user_id):
+            return user_id
         else:
             return False
     else:
-        return userID
+        return user_id
 
 # User Not Logged in, visitor
 
@@ -45,6 +51,15 @@ def logout():
     except KeyError:
         pass
     return redirect('/login')
+
+
+@app.route("/chat", methods=['POST', 'GET'])
+def chatroom():
+    user_id = login_check(must_staff=True)
+    if not user_id:
+        return redirect('/login')
+    else:
+        return render_template('staff_chat.html')
 
 
 @app.route("/order", methods=['POST', 'GET'])
@@ -139,44 +154,32 @@ def cart():
 
 @app.route("/cart_total", methods=["GET"])
 def cart_total():
-    user_id = login_check()
+    user_id = login_check(in_table=True)
     if not user_id:
-        print('User is not logged in')
+        print('User is not logged in or not in a party')
         return jsonify({
-            'error': 'User is not logged in'
-        }), 400
-    if not party_check(user_id):
-        print('User is not in a party')
-        return jsonify({
-            'error': 'User is not in a party'
+            'error': 'User is not logged in or not in a party'
         }), 400
 
     # Add the dish to the cart
     print("Getting cart total...")
     table_id = Party.query.filter_by(customer_id=user_id).first().table_id
     # Calculate the cart total
-    cart_total = get_cart_total(table_id)
+    res_total = get_cart_total(table_id)
 
     return jsonify({
-        'cartTotal': cart_total
+        'cartTotal': res_total
     })
 
 
 @app.route('/add_to_cart/<int:dish_id>', methods=['GET'])
 def add_to_cart(dish_id):
     # Get the user's table ID
-    user_id = login_check()
+    user_id = login_check(in_table=True)
     if not user_id:
-        print('User is not logged in')
+        print('User is not logged in or not in a party')
         return jsonify({
-            'error': 'User is not logged in'
-        }), 400
-
-    # Check if the user is at a party
-    if not party_check(user_id):
-        print('User is not in a party')
-        return jsonify({
-            'error': 'User is not in a party'
+            'error': 'User is not logged in or not in a party'
         }), 400
 
     # Add the dish to the cart
@@ -195,10 +198,10 @@ def add_to_cart(dish_id):
         db.session.commit()
 
     # Calculate the cart total
-    cart_total = get_cart_total(table_id)
+    res_total = get_cart_total(table_id)
 
     return jsonify({
-        'cartTotal': cart_total
+        'cartTotal': res_total
     })
 
 
@@ -299,7 +302,7 @@ def login_page():
     else:
         # Handle GET request to render the login page
         try:
-            user_id = session['user']['localId']
+            session['user']['localId']
         except KeyError:
             # User Not Logged in
             return render_template("./login.html")
@@ -438,3 +441,79 @@ def dishes_customer_index(general_dish_id):
         # User Not Logged in
         return render_template('menu/dishes/customer_view.html', dishes_items=dishes_items,
                                layout='./base/visitor.html')
+
+@socketio.on('message')
+def handleMessage(msg):
+    user_id = login_check(must_staff=True)
+    if user_id:
+        print(f"Server received: {msg}")
+
+
+@socketio.event
+def joinRoom(message):
+    user_id = login_check(must_staff=True)
+    if user_id:
+        print(message)
+        join_room(message['secretkey'])
+
+        emit('roomJoined', {
+            'user': find_name_from_id(user_id),
+            'room': message['secretkey']
+        }, to=message['secretkey'])
+
+
+@socketio.event
+def sendMsg(message):
+    user_id = login_check(must_staff=True)
+    if user_id:
+        emit('sendtoAll', {
+            "msg": message['msg'],
+            "user": find_name_from_id(user_id)
+        }, to=message['secretkey'])
+
+
+@socketio.event
+def sendMsg(message):
+    user_id = login_check(must_staff=True)
+    if user_id:
+        emit('sendtoAll', {
+            "msg": message['msg'],
+            "user": find_name_from_id(user_id)
+        }, to=message['secretkey'])
+
+
+@socketio.event
+def serverConf(message):
+    user_id = login_check(must_staff=True)
+    if user_id:
+        emit('Confserver', {
+            'user': find_name_from_id(user_id),
+            'room': message['secretkey']
+        }, to=message['secretkey'])
+
+
+@socketio.event
+def kitchenConf(message):
+    user_id = login_check(must_staff=True)
+    if user_id:
+        emit('Conf_kitchen', {
+            'user': find_name_from_id(user_id),
+            'room': message['secretkey']
+        }, to=message['secretkey'])
+
+
+@socketio.event
+def leaveRoom(message):
+    user_id = login_check(must_staff=True)
+    if user_id:
+        emit('roomLeftPersonal', {
+            'user': find_name_from_id(user_id),
+            'room': message['secretkey']
+        })
+        leave_room(message['secretkey'])
+        emit('roomLeft', {
+            'user': find_name_from_id(user_id),
+            'room': message['secretkey']
+        }, to=message['secretkey'])
+
+
