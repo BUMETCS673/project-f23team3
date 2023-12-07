@@ -22,10 +22,10 @@
           <!-- Your table rows go here -->
             {% for item in cart_items %}
                 <tr>
-                    <td>{{ item.dish_id }}</td>
-                    <td><a href="cart/subtract/{{item.dish_id}}" style="text-decoration: none"> - </a>{{ item.quantity }}<a href="cart/add/{{item.dish_id}}" style="text-decoration: none"> + </a></td>
+                    <td>{{ item[1].name }}</td>
+                    <td><a href="cart/subtract/{{item.dish_id}}" style="text-decoration: none"> - </a>{{ item[0].quantity }}<a href="cart/add/{{item[0].dish_id}}" style="text-decoration: none"> + </a></td>
                     <td>
-                        <a href="cart/delete/{{item.dish_id}}">Delete</a>
+                        <a href="cart/delete/{{item[0].dish_id}}">Delete</a>
                     </td>
                 </tr>
             {% endfor %}

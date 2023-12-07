@@ -96,6 +96,7 @@ def cart():
     user_id = login_check()
     if not user_id:
         return redirect('/login')
+    table_id = 1
     if request.method == 'POST':
         dish_name = request.form.get('dish_name')
         quantity = request.form.get('quantity')
@@ -106,6 +107,8 @@ def cart():
         # return jsonify({'message': 'Order placed and paid', 'order_id': new_order.dish_id})
     else:
         cart_items = Cart.query.filter_by(table_id=1).all()
+        cart_items = db.session.query(Cart, Dish).filter(Dish.id == Cart.dish_id).filter_by(
+            table_id=table_id).all()
         return render_template("cart.html", cart_items=cart_items)
         # return render_template("cart.html")
 
